@@ -1,0 +1,678 @@
+---
+layout: default
+lang: pt-BR
+title: Montagem do robô
+permalink: /arduino-robo-sensor-infravermelho/
+---
+
+<style>
+  .image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    padding: 1em;
+    border: 2px dashed #aaa;
+    background: #f5f5f5;
+    color: #666;
+    text-align: center;
+  }
+  figure { margin: 1.5em 0; }
+  figcaption { font-size: 0.9em; color: #666; margin-top: 0.5em; }
+  .warning {
+    border-left: 4px solid #e0a800;
+    background: #fff8e1;
+    padding: 0.75em 1em;
+    margin: 1em 0;
+  }
+  .tinkercad {
+    border-left: 4px solid #1477d1;
+    background: #eaf4fd;
+    padding: 0.75em 1em;
+    margin: 1em 0;
+  }
+  .tinkercad > strong:first-child { display: block; margin-bottom: 0.4em; }
+</style>
+
+<article>
+
+  <header>
+    <h1>Montagem do Robô</h1>
+
+    <p>
+      Neste tutorial, você aprenderá a montar um circuito utilizando um
+      <strong>Arduino Uno R3</strong>, um <strong>sensor infravermelho MH Flying Fish</strong>,
+      dois <strong>motores DC com engrenagem</strong> e uma
+      <strong>ponte H de dois canais</strong>.
+    </p>
+
+    <p>
+      O objetivo do projeto é criar a base de um pequeno robô capaz de detectar
+      obstáculos utilizando um sensor infravermelho e controlar dois motores
+      independentemente.
+    </p>
+  </header>
+
+  <figure>
+    <img src="{{ '/assets/img/arduino-robo-circuito-completo.png' | relative_url }}"
+         alt="Diagrama do circuito completo: Arduino Uno, sensor MH Flying Fish, ponte H L298N e dois motores DC">
+
+    <figcaption>
+      Exemplo do circuito completo com Arduino Uno, sensor infravermelho,
+      ponte H e dois motores.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>Materiais necessários</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Quantidade</th>
+          <th>Componente</th>
+          <th>Onde encontrar (sucata)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Arduino Uno R3</td><td>Projetos ou kits de robótica antigos</td></tr>
+        <tr><td>1</td><td>Sensor infravermelho MH Flying Fish</td><td>Kits de sensores ou projetos antigos</td></tr>
+        <tr><td>2</td><td>Motores DC com engrenagem</td><td>Carrinho de controle remoto, brinquedos motorizados</td></tr>
+        <tr><td>1</td><td>Ponte H de dois canais compatível com os motores</td><td>Kits de robótica ou projetos antigos</td></tr>
+        <tr><td>1</td><td>Bateria de 9 V para alimentação do Arduino</td><td>Detector de fumaça, multímetro, microfone sem fio</td></tr>
+        <tr><td>6</td><td>Pilhas AA para alimentação dos motores</td><td>Controle remoto, brinquedos, relógios de parede</td></tr>
+        <tr><td>1</td><td>Suporte para 6 pilhas AA</td><td>Carrinho de controle remoto, brinquedos, lanternas</td></tr>
+        <tr><td>Vários</td><td>Jumpers ou fios para conexão</td><td>Cabos de rede, cabos de telefone, aparelhos eletrônicos descartados</td></tr>
+        <tr><td>1</td><td>Protoboard, opcional</td><td>Kits de eletrônica ou laboratório da escola</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Antes de começar: escolha da ponte H</h2>
+
+    <p>
+      A ponte H é responsável por fornecer energia aos motores e controlar
+      o sentido de rotação de cada um deles.
+    </p>
+
+    <p>
+      Para este projeto, escolha uma ponte H que possua
+      <strong>pelo menos dois canais independentes</strong>, permitindo controlar
+      os dois motores simultaneamente.
+    </p>
+
+    <p>Exemplos comuns incluem módulos baseados em:</p>
+
+    <ul>
+      <li>L298N;</li>
+      <li>TB6612FNG;</li>
+      <li>DRV8833;</li>
+      <li>outros drivers de motor DC de dois canais.</li>
+    </ul>
+
+    <p>Antes da montagem, verifique se a ponte H escolhida suporta:</p>
+
+    <ul>
+      <li>a tensão utilizada pelos motores;</li>
+      <li>a corrente máxima exigida por cada motor;</li>
+      <li>dois motores funcionando simultaneamente.</li>
+    </ul>
+
+    <p>
+      Os nomes dos pinos podem variar entre diferentes modelos de ponte H.
+      Por isso, neste tutorial utilizaremos nomes genéricos para representar
+      as entradas e saídas.
+    </p>
+  </section>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 2 — Exemplos de pontes H de dois canais]
+    </div>
+    <figcaption>
+      Exemplos de módulos de ponte H capazes de controlar dois motores DC.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>Laboratório virtual: teste antes de montar no Tinkercad</h2>
+
+    <p>
+      Que tal treinar a montagem antes de pegar nos fios de verdade?
+      No <strong>Tinkercad</strong> você pode ligar, desligar e errar à vontade:
+      nenhum componente queima e nenhuma pilha acaba!
+    </p>
+
+    <p>
+      Preparamos uma versão virtual do robô para você explorar:
+    </p>
+
+    <p>
+      <a href="https://www.tinkercad.com/things/6B3F5MUqK3Q/editel?returnTo=%2Fdashboard&amp;sharecode=02cUV92HqU0R-0jo6UDatBLshmzDGywv_6TXTbyXFu8"
+         target="_blank" rel="noopener"><strong>Abrir o circuito do robô no Tinkercad</strong></a>
+    </p>
+
+    <p>Para entrar no laboratório:</p>
+
+    <ol>
+      <li>
+        Crie uma conta gratuita no Tinkercad ou entre com a sua conta
+        (o link só abre depois do login).
+      </li>
+      <li>
+        Abra o link acima. Se o Tinkercad oferecer a opção de copiar o projeto,
+        faça uma cópia para você: assim pode mexer à vontade sem estragar o original.
+      </li>
+      <li>
+        Passe o mouse sobre um pino ou uma ponta de fio: o Tinkercad mostra o
+        nome daquele terminal. Esse é o seu “raio-x” para conferir as conexões.
+      </li>
+      <li>
+        Clique em <strong>Iniciar simulação</strong> para dar vida ao circuito e
+        em <strong>Parar simulação</strong> para voltar a editar.
+      </li>
+    </ol>
+
+    <p>
+      Ao longo do tutorial, você vai encontrar <strong>missões no Tinkercad</strong>
+      como a de baixo. Cada uma pede que você confira no simulador a etapa que acabou
+      de ler. Complete todas e seu robô estará pronto para sair da tela!
+    </p>
+
+    <div class="tinkercad">
+      <strong>Missão 0: reconhecimento do terreno</strong>
+      Abra o circuito e encontre cada personagem da nossa história: o Arduino
+      (o cérebro), o sensor (os olhos), a ponte H (os músculos), os dois motores
+      (as rodas) e as fontes de energia (o lanche do robô). Achou todos?
+      Então vamos à primeira etapa!
+    </div>
+
+    <p>
+      Alguns componentes podem ter aparência ou nome diferente no Tinkercad,
+      porque a biblioteca do simulador não tem todos os módulos do mercado.
+      O que importa é que as ligações sigam a mesma lógica deste tutorial.
+    </p>
+  </section>
+
+  <section>
+    <h2>1. Alimentando o Arduino Uno</h2>
+
+    <p>
+      O Arduino será alimentado separadamente utilizando uma bateria de
+      <strong>9 V</strong>.
+    </p>
+
+    <p>
+      A maneira mais simples é utilizar o conector de alimentação do próprio
+      Arduino Uno.
+    </p>
+
+    <p>Caso seja utilizada a entrada VIN, faça a seguinte conexão:</p>
+
+    <ul>
+      <li>positivo da bateria → <strong>VIN</strong> do Arduino;</li>
+      <li>negativo da bateria → <strong>GND</strong> do Arduino.</li>
+    </ul>
+
+    <div class="warning">
+      <strong>Atenção:</strong>
+      não conecte uma bateria de 9 V diretamente ao pino 5V do Arduino.
+    </div>
+
+    <div class="tinkercad">
+      <strong>Missão 1 no Tinkercad: o café da manhã do cérebro</strong>
+      Siga o fio que sai do positivo da bateria de 9 V: ele precisa chegar ao
+      <strong>VIN</strong>, e o negativo ao <strong>GND</strong>. Passe o mouse
+      nas pontas para confirmar. Se algum fio estiver no pino 5V, é hora de
+      trocar de lugar antes que o robô tenha uma indigestão!
+    </div>
+  </section>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 3 — Bateria de 9 V conectada ao Arduino Uno]
+    </div>
+    <figcaption>
+      Alimentação independente do Arduino Uno utilizando bateria de 9 V.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>2. Conectando o sensor infravermelho MH Flying Fish</h2>
+
+    <p>O sensor MH Flying Fish será utilizado para detectar obstáculos.</p>
+
+    <p>
+      Dependendo da versão do módulo, ele normalmente apresenta terminais
+      identificados como:
+    </p>
+
+    <ul>
+      <li><strong>VCC</strong> — alimentação;</li>
+      <li><strong>GND</strong> — terra;</li>
+      <li><strong>DO</strong> — saída digital;</li>
+      <li><strong>AO</strong> — saída analógica, quando disponível.</li>
+    </ul>
+
+    <p>Para este projeto será utilizada a saída digital.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Sensor MH Flying Fish</th>
+          <th>Arduino Uno</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>VCC</td><td>5V</td></tr>
+        <tr><td>GND</td><td>GND</td></tr>
+        <tr><td>DO</td><td>D2</td></tr>
+        <tr><td>AO</td><td>Não utilizado</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      O potenciômetro presente no módulo pode ser utilizado para ajustar
+      a sensibilidade da detecção.
+    </p>
+
+    <div class="tinkercad">
+      <strong>Missão 2 no Tinkercad: abrindo os olhos do robô</strong>
+      Encontre o sensor e confira os três fios: VCC no <strong>5V</strong>,
+      GND no <strong>GND</strong> e o sinal no pino <strong>D2</strong>.
+      Depois inicie a simulação e clique no sensor: em muitos sensores do
+      Tinkercad aparece um controle para aproximar ou afastar um objeto
+      virtual. Brinque de esconde-esconde com o robô!
+    </div>
+  </section>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 4 — Sensor MH Flying Fish com identificação dos pinos]
+    </div>
+    <figcaption>
+      Identificação dos terminais do módulo infravermelho.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>3. Conectando os motores à ponte H</h2>
+
+    <p>Os motores não devem ser conectados diretamente aos pinos do Arduino.</p>
+
+    <p>
+      A corrente necessária para movimentar um motor normalmente é maior
+      do que a corrente que um pino digital do Arduino consegue fornecer.
+    </p>
+
+    <p>Por isso, os dois motores devem ser conectados às saídas da ponte H.</p>
+
+    <p>Utilize a seguinte organização:</p>
+
+    <ul>
+      <li><strong>Motor M1</strong> → saída do Canal A da ponte H;</li>
+      <li><strong>Motor M2</strong> → saída do Canal B da ponte H.</li>
+    </ul>
+
+    <p>
+      Cada motor possui dois terminais. Ambos devem ser conectados às duas
+      saídas correspondentes ao seu canal.
+    </p>
+
+    <div class="tinkercad">
+      <strong>Missão 3 no Tinkercad: cada roda no seu lugar</strong>
+      Siga os dois fios de cada motor até a ponte H. O Motor M1 deve estar
+      nas saídas do <strong>Canal A</strong> e o M2 nas do <strong>Canal B</strong>.
+      Se algum fio de motor for direto para o Arduino, você achou um intruso:
+      mande-o para a ponte H!
+    </div>
+  </section>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 5 — Dois motores conectados às saídas da ponte H]
+    </div>
+    <figcaption>
+      Motor M1 conectado ao Canal A e Motor M2 conectado ao Canal B.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>4. Alimentando os motores</h2>
+
+    <p>
+      Os motores utilizarão uma alimentação independente formada por
+      <strong>6 pilhas AA</strong> instaladas em um suporte para pilhas.
+    </p>
+
+    <p>
+      Se forem utilizadas pilhas alcalinas de aproximadamente 1,5 V,
+      o conjunto terá uma tensão nominal de aproximadamente:
+    </p>
+
+    <p><strong>6 × 1,5 V = 9 V</strong></p>
+
+    <p>Conecte:</p>
+
+    <ul>
+      <li>
+        positivo do suporte das pilhas → entrada de alimentação dos motores
+        da ponte H;
+      </li>
+      <li>negativo do suporte das pilhas → GND da ponte H.</li>
+    </ul>
+
+    <div class="warning">
+      <strong>Importante:</strong>
+      verifique a tensão nominal dos motores utilizados.
+      Caso os motores não sejam especificados para aproximadamente 9 V,
+      utilize uma quantidade de pilhas ou fonte de alimentação adequada às
+      especificações do motor.
+    </div>
+
+    <div class="tinkercad">
+      <strong>Missão 4 no Tinkercad: o lanche dos músculos</strong>
+      Clique no conjunto de pilhas e veja quantas pilhas e qual tensão ele
+      mostra. Depois confira: o positivo vai para a entrada de alimentação
+      dos motores da ponte H e o negativo para o GND da ponte H.
+      Pilha trocada é como calçar o sapato no pé errado: não funciona!
+    </div>
+  </section>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 6 — Suporte com 6 pilhas AA conectado à ponte H]
+    </div>
+    <figcaption>
+      As pilhas fornecem energia diretamente à ponte H e aos motores.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>5. Criando um GND comum</h2>
+
+    <p>
+      O Arduino e os motores possuem fontes de alimentação diferentes,
+      mas o Arduino precisa compartilhar uma referência elétrica com a
+      ponte H.
+    </p>
+
+    <p>Faça a seguinte conexão:</p>
+
+    <ul>
+      <li>GND do Arduino → GND da ponte H;</li>
+      <li>negativo do suporte das pilhas → GND da ponte H;</li>
+      <li>GND do sensor → GND do Arduino.</li>
+    </ul>
+
+    <p>Dessa maneira, teremos:</p>
+
+    <p><strong>GND Arduino ↔ GND Ponte H ↔ negativo das pilhas</strong></p>
+
+    <p>
+      Essa conexão é necessária para que a ponte H consiga interpretar
+      corretamente os sinais digitais enviados pelo Arduino.
+    </p>
+
+    <div class="tinkercad">
+      <strong>Missão 5 no Tinkercad: o aperto de mão</strong>
+      Procure o fio que liga o GND do Arduino ao GND da ponte H. Ele é o
+      “aperto de mão” que faz os dois se entenderem. Faça um teste: apague
+      esse fio, inicie a simulação e veja o que acontece. Depois desfaça
+      com <strong>Ctrl+Z</strong> e compare. Sem aperto de mão, não tem conversa!
+    </div>
+  </section>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 7 — Diagrama destacando o GND comum]
+    </div>
+    <figcaption>
+      Mesmo com fontes diferentes, Arduino e ponte H devem compartilhar o GND.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>6. Conectando o Arduino às entradas da ponte H</h2>
+
+    <p>
+      Uma ponte H de dois canais normalmente possui entradas responsáveis
+      pelo controle de cada motor.
+    </p>
+
+    <p>
+      Os nomes desses terminais podem variar conforme o modelo.
+      Em muitos módulos eles aparecem como:
+    </p>
+
+    <ul>
+      <li>IN1 e IN2 para o primeiro motor;</li>
+      <li>IN3 e IN4 para o segundo motor.</li>
+    </ul>
+
+    <p>Neste tutorial utilizaremos os seguintes pinos do Arduino:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Arduino Uno</th>
+          <th>Função</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>D2</td><td>Leitura do sensor infravermelho</td></tr>
+        <tr><td>D5</td><td>Entrada de controle 1 do Motor M1</td></tr>
+        <tr><td>D6</td><td>Entrada de controle 2 do Motor M1</td></tr>
+        <tr><td>D9</td><td>Entrada de controle 1 do Motor M2</td></tr>
+        <tr><td>D10</td><td>Entrada de controle 2 do Motor M2</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      Em uma ponte H que utilize as nomenclaturas IN1, IN2, IN3 e IN4,
+      a ligação poderá ser feita da seguinte forma:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Arduino</th>
+          <th>Ponte H</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>D5</td><td>IN1</td></tr>
+        <tr><td>D6</td><td>IN2</td></tr>
+        <tr><td>D9</td><td>IN3</td></tr>
+        <tr><td>D10</td><td>IN4</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      Caso sua ponte H utilize nomes diferentes, consulte as marcações do
+      módulo ou o datasheet e identifique as entradas correspondentes aos
+      dois canais.
+    </p>
+
+    <div class="tinkercad">
+      <strong>Missão 6 no Tinkercad: os fios mensageiros</strong>
+      Confira os quatro fios que levam as ordens do Arduino para a ponte H:
+      D5 e D6 para o Motor M1, D9 e D10 para o Motor M2. Dica de detetive:
+      dê uma cor diferente para cada fio (clique no fio e escolha a cor).
+      Assim fica fácil achar quem está no lugar errado!
+    </div>
+  </section>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 8 — Arduino conectado às entradas da ponte H]
+    </div>
+    <figcaption>
+      Os quatro pinos digitais controlam o sentido de rotação dos dois motores.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>7. Resumo das conexões</h2>
+
+    <h3>Sensor infravermelho</h3>
+    <ul>
+      <li>VCC → 5V do Arduino;</li>
+      <li>GND → GND;</li>
+      <li>DO → D2;</li>
+      <li>AO → não utilizado.</li>
+    </ul>
+
+    <h3>Motor M1</h3>
+    <ul>
+      <li>Terminal 1 → saída 1 do Canal A;</li>
+      <li>Terminal 2 → saída 2 do Canal A;</li>
+      <li>D5 e D6 → entradas de controle do Canal A.</li>
+    </ul>
+
+    <h3>Motor M2</h3>
+    <ul>
+      <li>Terminal 1 → saída 1 do Canal B;</li>
+      <li>Terminal 2 → saída 2 do Canal B;</li>
+      <li>D9 e D10 → entradas de controle do Canal B.</li>
+    </ul>
+
+    <h3>Alimentação</h3>
+    <ul>
+      <li>Bateria de 9 V → Arduino Uno;</li>
+      <li>6 pilhas AA → entrada de potência da ponte H;</li>
+      <li>GND do Arduino → GND da ponte H;</li>
+      <li>negativo das pilhas → GND da ponte H.</li>
+    </ul>
+  </section>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 9 — Diagrama geral de todas as conexões]
+    </div>
+    <figcaption>
+      Diagrama completo da montagem.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>8. Como o circuito funciona</h2>
+
+    <p>
+      Quando o circuito é ligado, o sensor MH Flying Fish monitora continuamente
+      a região posicionada à sua frente.
+    </p>
+
+    <p>
+      Quando um objeto reflete a luz infravermelha emitida pelo módulo,
+      o sensor altera o estado de sua saída digital.
+    </p>
+
+    <p>O Arduino lê esse sinal através do pino <strong>D2</strong>.</p>
+
+    <p>
+      A partir dessa informação, o programa pode alterar os sinais enviados
+      para a ponte H.
+    </p>
+
+    <p>Por exemplo, o robô pode:</p>
+
+    <ol>
+      <li>andar para frente enquanto não existir nenhum obstáculo;</li>
+      <li>parar quando detectar um objeto;</li>
+      <li>recuar durante alguns instantes;</li>
+      <li>girar para um dos lados;</li>
+      <li>continuar andando depois que o caminho estiver livre.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>9. Verificação antes de ligar</h2>
+
+    <p>Antes de conectar as fontes de energia, faça uma última conferência.</p>
+
+    <ul>
+      <li>
+        Certifique-se de que os motores estão conectados à ponte H e não
+        diretamente ao Arduino.
+      </li>
+      <li>Confira se a ponte H suporta a corrente exigida pelos dois motores.</li>
+      <li>Verifique se a tensão das pilhas é compatível com os motores.</li>
+      <li>Confira a polaridade das fontes de alimentação.</li>
+      <li>Confirme a ligação entre o GND do Arduino e o GND da ponte H.</li>
+      <li>Verifique se o sensor está conectado à tensão correta.</li>
+      <li>Certifique-se de que não existem fios soltos ou em curto-circuito.</li>
+    </ul>
+
+    <div class="tinkercad">
+      <strong>Missão final no Tinkercad: o ensaio geral</strong>
+      Percorra esta lista no simulador, item por item, e depois clique em
+      <strong>Iniciar simulação</strong>. Se o Tinkercad mostrar algum alerta
+      ou um componente se comportar de um jeito estranho, volte à missão da
+      etapa correspondente e investigue. Tudo certo na tela? Parabéns, você
+      desbloqueou a montagem de verdade!
+    </div>
+  </section>
+
+  <section>
+    <h2>10. Estrutura final do projeto</h2>
+
+    <pre>
+MH Flying Fish
+      │
+      │ sinal
+      ▼
+ Arduino Uno
+      │
+      │ sinais de controle
+      ▼
+ Ponte H de 2 canais
+    │             │
+    ▼             ▼
+ Motor M1      Motor M2
+
+
+Bateria 9 V
+    │
+    ▼
+Arduino Uno
+
+
+6 pilhas AA
+    │
+    ▼
+ Ponte H
+    │
+    ├── Motor M1
+    │
+    └── Motor M2
+
+
+GND Arduino ───── GND Ponte H ───── Negativo das pilhas
+    </pre>
+  </section>
+
+  <!-- <section>
+    <h2>Conclusão</h2>
+
+    <p>
+      Com essa montagem, temos a base de um robô móvel capaz de utilizar
+      um sensor infravermelho para detectar obstáculos e controlar dois
+      motores de forma independente.
+    </p>
+
+    <p>
+      A utilização de uma ponte H de dois canais torna o projeto flexível,
+      permitindo utilizar diferentes modelos de driver, desde que sejam
+      compatíveis com a tensão e a corrente dos motores escolhidos.
+    </p>
+
+    <p>
+      O próximo passo é programar o Arduino para interpretar o sinal do
+      sensor MH Flying Fish e definir como os motores devem responder quando
+      um obstáculo for detectado.
+    </p>
+  </section> -->
+
+</article>
