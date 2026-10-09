@@ -50,8 +50,10 @@ codigo_url: ""
 
     <p>
       Neste tutorial, você vai aprender a carregar o <strong>código de escrita</strong>
-      no Arduino usando a <strong>IDE Arduino</strong> e a gravar informações nos
-      <strong>cartões RFID</strong> usando a interface que você montou no tutorial
+      no Arduino (a placa programável que é o cérebro da interface) usando a
+      <strong>IDE Arduino</strong> (o programa de computador usado para escrever e
+      enviar códigos para a placa) e a gravar informações nos
+      <strong>cartões RFID</strong> (cartões lidos por aproximação) usando a interface que você montou no tutorial
       <a href="{{ '/arduino-interface-rfid-bluetooth/' | relative_url }}">Montagem da Interface</a>.
     </p>
 
@@ -83,7 +85,7 @@ codigo_url: ""
         </tr>
       </thead>
       <tbody>
-        <tr><td>7</td><td>Cartões ou tags RFID compatíveis com o leitor RC522</td><td><a class="link-compra" href="#">[link de compra]</a></td></tr>
+        <tr><td>7</td><td>Cartões ou tags RFID compatíveis com o leitor RC522 (o modelo do leitor)</td><td><a class="link-compra" href="#">[link de compra]</a></td></tr>
         <tr>
           <td>1</td>
           <td>
@@ -93,7 +95,7 @@ codigo_url: ""
           <td>Peças na lista do tutorial <a href="{{ '/arduino-interface-rfid-bluetooth/' | relative_url }}">Montagem da Interface</a></td>
         </tr>
         <tr><td>1</td><td>Computador com a IDE Arduino instalada</td><td>IDE gratuita em <a href="https://www.arduino.cc/en/software" target="_blank" rel="noopener">arduino.cc</a></td></tr>
-        <tr><td>1</td><td>Cabo USB para conectar o Arduino Mega ao computador</td><td>Incluído na caixa do Arduino Mega</td></tr>
+        <tr><td>1</td><td>Cabo USB (cabo de dados) para conectar o Arduino Mega ao computador</td><td>Incluído na caixa do Arduino Mega</td></tr>
       </tbody>
     </table>
 
@@ -131,7 +133,7 @@ codigo_url: ""
       </li>
       <li>
         o <strong>último bloco de cada setor</strong> (blocos 3, 7, 11, 15 e assim
-        por diante) guarda as chaves de acesso daquele setor;
+        por diante) guarda as chaves de acesso (senhas que liberam a leitura e a escrita) daquele setor;
       </li>
       <li>os demais blocos, como 1, 2, 4, 5 e 6, podem guardar os seus dados.</li>
     </ul>
@@ -182,17 +184,17 @@ codigo_url: ""
         lateral esquerda, ou acesse o menu
         <strong>Ferramentas → Gerenciar Bibliotecas</strong>.
       </li>
-      <li>Na busca, digite <strong>MFRC522</strong>.</li>
+      <li>Na busca, digite <strong>MFRC522</strong> (o nome da biblioteca do leitor RC522).</li>
       <li>
         Encontre a biblioteca <strong>MFRC522</strong> da
-        <strong>GithubCommunity</strong> e clique em <strong>Instalar</strong>.
+        <strong>GithubCommunity</strong> (o nome de quem publica a biblioteca) e clique em <strong>Instalar</strong>.
       </li>
     </ol>
 
     <div class="tip">
       <strong>Dica:</strong>
       se o código de escrita usar outras bibliotecas, elas aparecem nas primeiras
-      linhas do arquivo, nas linhas que começam com <code>#include</code>.
+      linhas do arquivo, nas linhas que começam com <code>#include</code> (comando que adiciona uma biblioteca ao programa).
       Se a IDE reclamar que não encontrou alguma delas, procure o nome no
       Gerenciador de Bibliotecas e instale da mesma forma.
     </div>
@@ -217,7 +219,9 @@ codigo_url: ""
 
     <p>
       Procure no início do código as linhas que indicam os pinos do leitor RFID.
-      Elas devem bater com as ligações feitas na montagem da interface:
+      Elas devem bater com as ligações feitas na montagem da interface
+      (SDA é o pino que avisa o leitor que o Arduino vai falar com ele, e RST
+      é o pino que reinicia o leitor):
     </p>
 
     <table>
@@ -251,7 +255,7 @@ codigo_url: ""
 
     <ol>
       <li>
-        Desconecte a bateria de 9 V da interface. Durante a gravação, o Arduino
+        Desconecte a bateria de 9 V (volts) da interface. Durante a gravação, o Arduino
         será alimentado pelo cabo USB.
       </li>
       <li>Conecte o Arduino Mega ao computador com o cabo USB.</li>
@@ -260,8 +264,8 @@ codigo_url: ""
         <strong>Arduino Mega or Mega 2560</strong>.
       </li>
       <li>
-        Em <strong>Ferramentas → Porta</strong>, escolha a porta em que o
-        Arduino apareceu. No Windows, ela tem um nome como <code>COM3</code>;
+        Em <strong>Ferramentas → Porta</strong>, escolha a porta (o nome que o computador
+        dá para a conexão com o Arduino) em que o Arduino apareceu. No Windows, ela tem um nome como <code>COM3</code>;
         no Linux, <code>/dev/ttyACM0</code>; no macOS,
         <code>/dev/cu.usbmodem…</code>.
       </li>
@@ -289,7 +293,7 @@ codigo_url: ""
     <ol>
       <li>
         Clique no botão <strong>Verificar</strong> (o ícone de “certo”) para
-        conferir se o código compila sem erros.
+        conferir se o código compila (é traduzido para a linguagem da placa) sem erros.
       </li>
       <li>
         Clique no botão <strong>Carregar</strong> (o ícone de seta para a direita)
@@ -297,7 +301,7 @@ codigo_url: ""
       </li>
       <li>
         Aguarde a mensagem <strong>Carregado</strong> na parte de baixo da IDE.
-        Os LEDs da placa piscam durante o envio.
+        Os LEDs (pequenas luzes) da placa piscam durante o envio.
       </li>
     </ol>
 
@@ -336,8 +340,8 @@ codigo_url: ""
         de lupa, no canto superior direito da IDE.
       </li>
       <li>
-        No canto da janela do monitor, escolha a mesma velocidade usada no código.
-        Para descobrir qual é, procure a linha <code>Serial.begin(...)</code> no
+        No canto da janela do monitor, escolha a mesma velocidade de comunicação (medida em baud, ou bits por segundo) usada no código.
+        Para descobrir qual é, procure a linha <code>Serial.begin(...)</code> (o comando que inicia a comunicação) no
         código: o número entre parênteses é a velocidade, por exemplo
         <code>9600</code> ou <code>115200</code>.
       </li>
@@ -425,14 +429,14 @@ codigo_url: ""
       <tbody>
         <tr>
           <td>Nenhuma mensagem aparece no Monitor Serial</td>
-          <td>A velocidade do monitor e a porta selecionada. Pressione o botão RESET do Arduino para reiniciar o programa.</td>
+          <td>A velocidade do monitor e a porta selecionada. Pressione o botão RESET (reiniciar) do Arduino para reiniciar o programa.</td>
         </tr>
         <tr>
           <td>O cartão não é detectado</td>
           <td>As ligações do leitor (principalmente 3,3 V, SDA no pino 53 e RST no pino 5) e a distância do cartão até a antena.</td>
         </tr>
         <tr>
-          <td>Erro de autenticação</td>
+          <td>Erro de autenticação (o leitor não conseguiu usar a chave de acesso para liberar o cartão)</td>
           <td>Se o cartão é compatível com o leitor RC522 e se nunca teve suas chaves de acesso alteradas. Cartões de outro tipo, ou com chaves alteradas, não podem ser gravados por esse código.</td>
         </tr>
         <tr>

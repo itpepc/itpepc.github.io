@@ -41,9 +41,14 @@ permalink: /arduino-robo-sensor-infravermelho/
 
     <p>
       Neste tutorial, você aprenderá a montar um circuito utilizando um
-      <strong>Arduino Uno R3</strong>, um <strong>sensor infravermelho MH Flying Fish</strong>,
-      dois <strong>motores DC com engrenagem</strong> e uma
-      <strong>ponte H de dois canais</strong>.
+      <strong>Arduino Uno R3</strong> (uma pequena placa programável que funciona como
+      o cérebro do robô; R3 é a terceira versão da placa), um
+      <strong>sensor infravermelho MH Flying Fish</strong> (sensor que usa luz invisível
+      para detectar objetos; MH Flying Fish é o nome do modelo),
+      dois <strong>motores DC com engrenagem</strong> (DC significa corrente contínua,
+      o tipo de corrente das pilhas) e uma
+      <strong>ponte H de dois canais</strong> (circuito que controla os motores; cada
+      canal comanda um motor).
     </p>
 
     <p>
@@ -82,12 +87,12 @@ permalink: /arduino-robo-sensor-infravermelho/
         <tr><td>4</td><td>Rodas: próprias para o motor DC com engrenagem ou feitas de papelão ou outro material reutilizado</td><td>Carrinhos de brinquedo, tampas de pote, papelão grosso de caixas</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/roda-motor-dc-arduino" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
         <tr><td>1</td><td>Fio de metal rígido (cerca de 2 mm de espessura) para servir de eixo das rodas traseiras</td><td>Armação de guarda-chuva, raio de bicicleta, palito de churrasco</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/arame-rigido-2mm" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
         <tr><td>1</td><td>Ponte H de dois canais compatível com os motores</td><td>Kits de robótica ou projetos antigos</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/ponte-h" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
-        <tr><td>1</td><td>Bateria de 9 V para alimentação do Arduino</td><td>Detector de fumaça, multímetro, microfone sem fio</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/bateria-9-v-alcalina" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
-        <tr><td>1</td><td>Clipe para bateria de 9 V com plugue P4 (2,1 mm, positivo no centro) para o conector de alimentação do Arduino</td><td>Clipe: brinquedos eletrônicos, rádios portáteis. Plugue: fontes e carregadores antigos</td><td><a class="link-compra" href="https://www.mercadolivre.com.br/clip-para-bateria-9v-com-plug-p4-capa-de-protecao-arduino/up/MLBU796577046" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
-        <tr><td>6</td><td>Pilhas AA para alimentação dos motores</td><td>Controle remoto, brinquedos, relógios de parede</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/pilha-alcalina-aa" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
+        <tr><td>1</td><td>Bateria de 9 V (volts, a unidade de tensão elétrica) para alimentação do Arduino</td><td>Detector de fumaça, multímetro (aparelho que mede grandezas elétricas), microfone sem fio</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/bateria-9-v-alcalina" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
+        <tr><td>1</td><td>Clipe para bateria de 9 V com plugue P4 (conector redondo de 2,1 mm, positivo no centro) para o conector de alimentação do Arduino</td><td>Clipe: brinquedos eletrônicos, rádios portáteis. Plugue: fontes e carregadores antigos</td><td><a class="link-compra" href="https://www.mercadolivre.com.br/clip-para-bateria-9v-com-plug-p4-capa-de-protecao-arduino/up/MLBU796577046" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
+        <tr><td>6</td><td>Pilhas AA (o tamanho comum de pilha) para alimentação dos motores</td><td>Controle remoto, brinquedos, relógios de parede</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/pilha-alcalina-aa" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
         <tr><td>1</td><td>Suporte para 6 pilhas AA</td><td>Carrinho de controle remoto, brinquedos, lanternas</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/suporte-6-pilhas-aa" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
-        <tr><td>Vários</td><td>Jumpers ou fios para conexão</td><td>Cabos de rede, cabos de telefone, aparelhos eletrônicos descartados</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/jumper-arduino-macho-femea" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
-        <tr><td>1</td><td>Protoboard, opcional</td><td>Kits de eletrônica ou laboratório da escola</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/protoboard-830-pontos-breadboard-830-furos-arduino" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
+        <tr><td>Vários</td><td>Jumpers (fios com pontas prontas para encaixe) ou fios para conexão</td><td>Cabos de rede, cabos de telefone, aparelhos eletrônicos descartados</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/jumper-arduino-macho-femea" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
+        <tr><td>1</td><td>Protoboard (placa com furos para montar circuitos sem solda), opcional</td><td>Kits de eletrônica ou laboratório da escola</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/protoboard-830-pontos-breadboard-830-furos-arduino" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
       </tbody>
     </table>
   </section>
@@ -106,27 +111,31 @@ permalink: /arduino-robo-sensor-infravermelho/
       os dois motores simultaneamente.
     </p>
 
-    <p>Exemplos comuns incluem módulos baseados em:</p>
+    <p>
+      Exemplos comuns incluem módulos baseados nos chips abaixo (os nomes
+      são códigos de modelos de chips controladores de motor):
+    </p>
 
     <ul>
       <li>L298N;</li>
       <li>TB6612FNG;</li>
       <li>DRV8833;</li>
-      <li>outros drivers de motor DC de dois canais.</li>
+      <li>outros drivers (circuitos controladores) de motor DC de dois canais.</li>
     </ul>
 
     <p>Antes da montagem, verifique se a ponte H escolhida suporta:</p>
 
     <ul>
-      <li>a tensão utilizada pelos motores;</li>
-      <li>a corrente máxima exigida por cada motor;</li>
+      <li>a tensão (a “força” da eletricidade, medida em volts) utilizada pelos motores;</li>
+      <li>a corrente (a quantidade de eletricidade que passa pelos fios) máxima exigida por cada motor;</li>
       <li>dois motores funcionando simultaneamente.</li>
     </ul>
 
     <p>
       Os nomes dos pinos podem variar entre diferentes modelos de ponte H.
       Por isso, neste tutorial utilizaremos nomes genéricos para representar
-      as entradas e saídas.
+      as entradas (onde chegam os comandos do Arduino) e as saídas
+      (onde os motores são ligados).
     </p>
   </section>
 
@@ -144,7 +153,8 @@ permalink: /arduino-robo-sensor-infravermelho/
 
     <p>
       Que tal treinar a montagem antes de pegar nos fios de verdade?
-      No <strong>Tinkercad</strong> você pode ligar, desligar e errar à vontade:
+      No <strong>Tinkercad</strong> (um simulador de circuitos gratuito que funciona
+      no navegador) você pode ligar, desligar e errar à vontade:
       nenhum componente queima e nenhuma pilha acaba!
     </p>
 
@@ -211,12 +221,15 @@ permalink: /arduino-robo-sensor-infravermelho/
 
     <ul>
       <li><strong>VCC</strong> — alimentação;</li>
-      <li><strong>GND</strong> — terra;</li>
+      <li><strong>GND</strong> — terra (o polo negativo do circuito);</li>
       <li><strong>DO</strong> — saída digital;</li>
       <li><strong>AO</strong> — saída analógica, quando disponível.</li>
     </ul>
 
-    <p>Para este projeto será utilizada a saída digital.</p>
+    <p>
+      Para este projeto será utilizada a saída digital. Na tabela abaixo,
+      <strong>D2</strong> é o pino digital número 2 do Arduino.
+    </p>
 
     <table>
       <thead>
@@ -234,7 +247,7 @@ permalink: /arduino-robo-sensor-infravermelho/
     </table>
 
     <p>
-      O potenciômetro presente no módulo pode ser utilizado para ajustar
+      O potenciômetro (pequeno parafuso giratório de ajuste) presente no módulo pode ser utilizado para ajustar
       a sensibilidade da detecção.
     </p>
 
@@ -511,11 +524,14 @@ permalink: /arduino-robo-sensor-infravermelho/
     </p>
 
     <ul>
-      <li>IN1 e IN2 para o primeiro motor;</li>
+      <li>IN1 e IN2 para o primeiro motor (IN vem do inglês <em>input</em>, entrada);</li>
       <li>IN3 e IN4 para o segundo motor.</li>
     </ul>
 
-    <p>Neste tutorial utilizaremos os seguintes pinos do Arduino:</p>
+    <p>
+      Neste tutorial utilizaremos os seguintes pinos do Arduino (D5, D6, D9 e D10
+      são os pinos digitais de número 5, 6, 9 e 10):
+    </p>
 
     <table>
       <thead>
@@ -555,7 +571,7 @@ permalink: /arduino-robo-sensor-infravermelho/
 
     <p>
       Caso sua ponte H utilize nomes diferentes, consulte as marcações do
-      módulo ou o datasheet e identifique as entradas correspondentes aos
+      módulo ou o datasheet (documento técnico do fabricante) e identifique as entradas correspondentes aos
       dois canais.
     </p>
 
@@ -671,10 +687,10 @@ permalink: /arduino-robo-sensor-infravermelho/
       </li>
       <li>Confira se a ponte H suporta a corrente exigida pelos dois motores.</li>
       <li>Verifique se a tensão das pilhas é compatível com os motores.</li>
-      <li>Confira a polaridade das fontes de alimentação.</li>
+      <li>Confira a polaridade (qual fio é o positivo e qual é o negativo) das fontes de alimentação.</li>
       <li>Confirme a ligação entre o GND do Arduino e o GND da ponte H.</li>
       <li>Verifique se o sensor está conectado à tensão correta.</li>
-      <li>Certifique-se de que não existem fios soltos ou em curto-circuito.</li>
+      <li>Certifique-se de que não existem fios soltos ou em curto-circuito (contato indevido entre fios, que pode esquentar e queimar peças).</li>
       <li>Gire as quatro rodas com a mão e confira se elas giram sem raspar em fios ou na base.</li>
     </ul>
 
@@ -699,12 +715,12 @@ permalink: /arduino-robo-sensor-infravermelho/
       A bateria deve ter um <strong>clipe com plugue P4</strong> (conector
       redondo de 2,1 mm com o positivo no centro). Esse plugue é encaixado no
       <strong>conector de alimentação</strong> do Arduino Uno, a entrada
-      redonda e preta ao lado da porta USB, que aceita de
+      redonda e preta ao lado da porta USB (onde se liga o cabo do computador), que aceita de
       <strong>7 V a 12 V</strong>.
     </p>
 
     <p>
-      Por esse conector, a tensão da bateria passa pelo regulador da placa,
+      Por esse conector, a tensão da bateria passa pelo regulador da placa (componente que ajusta a tensão),
       que a reduz para os 5 V usados pelo Arduino e pelo sensor.
     </p>
 
@@ -718,7 +734,7 @@ permalink: /arduino-robo-sensor-infravermelho/
       <strong>Missão final no Tinkercad: hora de acordar o robô</strong>
       Coloque a bateria de 9 V por último, assim como na montagem real.
       Se o simulador não permitir encaixar a bateria no conector redondo,
-      ligue o positivo ao <strong>VIN</strong> e o negativo ao
+      ligue o positivo ao <strong>VIN</strong> (pino de entrada de alimentação) e o negativo ao
       <strong>GND</strong>: no circuito virtual é o caminho equivalente,
       que também passa pelo regulador. Confira se nenhum fio da bateria foi
       parar no pino 5V e clique em <strong>Iniciar simulação</strong>.

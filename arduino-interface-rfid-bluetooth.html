@@ -41,13 +41,16 @@ permalink: /arduino-interface-rfid-bluetooth/
 
     <p>
       Neste tutorial, você aprenderá a montar um circuito utilizando um
-      <strong>Arduino Mega</strong>, um <strong>leitor RFID</strong>,
-      um <strong>módulo Bluetooth</strong> e uma <strong>bateria de 9 V</strong>.
+      <strong>Arduino Mega</strong> (uma placa programável com muitos pinos, que funciona
+      como o cérebro do projeto), um <strong>leitor RFID</strong> (identificação por
+      radiofrequência, que lê cartões por aproximação),
+      um <strong>módulo Bluetooth</strong> (comunicação sem fio de curta distância) e uma
+      <strong>bateria de 9 V</strong> (volts, a unidade de tensão elétrica).
     </p>
 
     <p>
       O objetivo do projeto é criar uma base para sistemas de identificação sem fio.
-      O leitor RFID poderá identificar cartões ou tags, enquanto o módulo Bluetooth
+      O leitor RFID poderá identificar cartões ou tags (etiquetas ou chaveiros com um chip dentro), enquanto o módulo Bluetooth
       poderá enviar essas informações para outro dispositivo, como um celular,
       computador ou aplicativo.
     </p>
@@ -75,14 +78,14 @@ permalink: /arduino-interface-rfid-bluetooth/
         </tr>
       </thead>
       <tbody>
-        <tr><td>1</td><td>Arduino Mega 2560</td><td>Impressoras 3D antigas (muitas usam Arduino Mega), projetos ou kits de robótica antigos</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/arduino-mega2560" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
+        <tr><td>1</td><td>Arduino Mega 2560 (o modelo exato da placa)</td><td>Impressoras 3D antigas (muitas usam Arduino Mega), projetos ou kits de robótica antigos</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/arduino-mega2560" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
         <tr><td>1</td><td>Leitor RFID compatível com Arduino</td><td>Kits de sensores ou projetos antigos; os cartões e tags podem vir de crachás, chaveiros de portaria e bilhetes de transporte</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/leitor-rfid-rc522" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
-        <tr><td>1</td><td>Módulo Bluetooth, como HC-05 ou HC-06</td><td>Kits de robótica ou projetos antigos</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/modulo-bluetooth-hc-05-e-hc-06" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
-        <tr><td>1</td><td>Bateria de 9 V</td><td>Detector de fumaça, multímetro, microfone sem fio</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/bateria-9-v-alcalina" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
-        <tr><td>1</td><td>Clipe para bateria de 9 V com plugue P4 (2,1 mm, positivo no centro) para o conector de alimentação do Arduino</td><td>Clipe: brinquedos eletrônicos, rádios portáteis. Plugue: fontes e carregadores antigos</td><td><a class="link-compra" href="https://www.mercadolivre.com.br/clip-para-bateria-9v-com-plug-p4-capa-de-protecao-arduino/up/MLBU796577046" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
-        <tr><td>Vários</td><td>Jumpers macho-macho ou macho-fêmea</td><td>Cabos de rede, cabos de telefone, aparelhos eletrônicos descartados</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/jumper-arduino-macho-femea" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
-        <tr><td>1</td><td>Protoboard, se necessária</td><td>Kits de eletrônica ou laboratório da escola</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/protoboard-830-pontos-breadboard-830-furos-arduino" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
-        <tr><td>2</td><td>Resistores para divisor de tensão, recomendados para o pino RX do Bluetooth</td><td>Placas de rádios, carregadores e brinquedos descartados (confira o valor pelas faixas de cor)</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/kit-resistores-arduino" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
+        <tr><td>1</td><td>Módulo Bluetooth, como HC-05 ou HC-06 (nomes de modelos)</td><td>Kits de robótica ou projetos antigos</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/modulo-bluetooth-hc-05-e-hc-06" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
+        <tr><td>1</td><td>Bateria de 9 V</td><td>Detector de fumaça, multímetro (aparelho que mede grandezas elétricas), microfone sem fio</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/bateria-9-v-alcalina" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
+        <tr><td>1</td><td>Clipe para bateria de 9 V com plugue P4 (conector redondo de 2,1 mm, positivo no centro) para o conector de alimentação do Arduino</td><td>Clipe: brinquedos eletrônicos, rádios portáteis. Plugue: fontes e carregadores antigos</td><td><a class="link-compra" href="https://www.mercadolivre.com.br/clip-para-bateria-9v-com-plug-p4-capa-de-protecao-arduino/up/MLBU796577046" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
+        <tr><td>Vários</td><td>Jumpers (fios com pontas prontas para encaixe) macho-macho (pino nas duas pontas) ou macho-fêmea (pino de um lado e encaixe do outro)</td><td>Cabos de rede, cabos de telefone, aparelhos eletrônicos descartados</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/jumper-arduino-macho-femea" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
+        <tr><td>1</td><td>Protoboard (placa com furos para montar circuitos sem solda), se necessária</td><td>Kits de eletrônica ou laboratório da escola</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/protoboard-830-pontos-breadboard-830-furos-arduino" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
+        <tr><td>2</td><td>Resistores (componentes que limitam a passagem de corrente) para divisor de tensão (dois resistores que reduzem a tensão de um sinal), recomendados para o pino RX do Bluetooth</td><td>Placas de rádios, carregadores e brinquedos descartados (confira o valor pelas faixas de cor)</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/kit-resistores-arduino" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
       </tbody>
     </table>
   </section>
@@ -99,7 +102,7 @@ permalink: /arduino-interface-rfid-bluetooth/
     <p>Neste artigo, será considerada uma montagem comum usando:</p>
 
     <ul>
-      <li>um leitor RFID do tipo <strong>RC522</strong>;</li>
+      <li>um leitor RFID do tipo <strong>RC522</strong> (nome do modelo);</li>
       <li>um módulo Bluetooth do tipo <strong>HC-05 ou HC-06</strong>;</li>
       <li>um <strong>Arduino Mega 2560</strong>;</li>
       <li>uma <strong>bateria de 9 V</strong> para alimentar o Arduino.</li>
@@ -108,7 +111,7 @@ permalink: /arduino-interface-rfid-bluetooth/
     <div class="warning">
       <strong>Atenção:</strong>
       muitos leitores RFID RC522 funcionam em <strong>3,3 V</strong>.
-      Não conecte o pino VCC desse módulo diretamente ao 5V do Arduino,
+      Não conecte o pino VCC (alimentação) desse módulo diretamente ao 5V do Arduino,
       a menos que o seu módulo seja explicitamente compatível com 5V.
     </div>
   </section>
@@ -127,7 +130,8 @@ permalink: /arduino-interface-rfid-bluetooth/
 
     <p>
       Antes de mexer nos fios de verdade, que tal um treino sem riscos?
-      No <strong>Tinkercad</strong> você monta, liga e mede à vontade:
+      No <strong>Tinkercad</strong> (um simulador de circuitos gratuito que funciona
+      no navegador) você monta, liga e mede à vontade:
       se algo der errado, nada queima e nenhuma bateria acaba!
     </p>
 
@@ -136,7 +140,7 @@ permalink: /arduino-interface-rfid-bluetooth/
       componentes deste projeto. Ele só oferece o <strong>Arduino Uno</strong>
       (não o Mega) e não tem leitor RFID nem módulo Bluetooth. Por isso, no
       simulador vamos treinar a parte elétrica que dá para testar: a
-      alimentação, as tensões de 5 V e 3,3 V, o divisor de tensão e o GND comum.
+      alimentação, as tensões de 5 V e 3,3 V, o divisor de tensão e o GND comum (o terra, ou polo negativo, compartilhado por todas as peças).
       As ligações do leitor e do Bluetooth você confere direto nas tabelas deste tutorial.
     </p>
 
@@ -187,8 +191,8 @@ permalink: /arduino-interface-rfid-bluetooth/
     </p>
 
     <p>
-      Também é possível alimentar o Arduino pelo pino <strong>VIN</strong>,
-      respeitando a polaridade:
+      Também é possível alimentar o Arduino pelo pino <strong>VIN</strong> (pino de entrada de alimentação),
+      respeitando a polaridade (positivo no positivo, negativo no negativo):
     </p>
 
     <ul>
@@ -226,14 +230,21 @@ permalink: /arduino-interface-rfid-bluetooth/
 
     <p>
       O leitor RFID será responsável por identificar cartões ou tags por aproximação.
-      Ele conversa com o Arduino por vários fios. Os pinos <strong>SCK</strong>,
-      <strong>MOSI</strong> e <strong>MISO</strong> do leitor precisam ir sempre nos
-      pinos 52, 51 e 50 do Arduino Mega. Os pinos <strong>SDA</strong> e
-      <strong>RST</strong> podem ir em outros pinos, desde que o código use os
+      Ele conversa com o Arduino por vários fios. Os pinos <strong>SCK</strong>
+      (o “relógio” que marca o ritmo da conversa),
+      <strong>MOSI</strong> (dados que vão do Arduino para o leitor) e
+      <strong>MISO</strong> (dados que vão do leitor para o Arduino) do leitor precisam ir sempre nos
+      pinos 52, 51 e 50 do Arduino Mega. Os pinos <strong>SDA</strong> (aqui, avisa o leitor
+      que o Arduino vai falar com ele) e
+      <strong>RST</strong> (reinicia o leitor) podem ir em outros pinos, desde que o código use os
       mesmos números.
     </p>
 
-    <p>Neste tutorial, a ligação do leitor RFID RC522 ao Arduino Mega é:</p>
+    <p>
+      Neste tutorial, a ligação do leitor RFID RC522 ao Arduino Mega é a da tabela
+      abaixo. Nela, D53 quer dizer pino digital 53 (e assim por diante), e o
+      pino <strong>IRQ</strong> (aviso de interrupção) não é usado.
+    </p>
 
     <table>
       <thead>
@@ -291,8 +302,9 @@ permalink: /arduino-interface-rfid-bluetooth/
 
     <p>
       O Arduino Mega tem pinos extras para isso, separados dos pinos usados
-      pelo cabo USB, o que facilita bastante a montagem. Neste projeto,
-      usaremos os pinos marcados na placa como:
+      pelo cabo USB (o cabo que liga a placa ao computador), o que facilita bastante a montagem. Neste projeto,
+      usaremos os pinos marcados na placa como TX1 e RX1 (o par de
+      comunicação número 1):
     </p>
 
     <ul>
@@ -300,7 +312,10 @@ permalink: /arduino-interface-rfid-bluetooth/
       <li><strong>RX1</strong> → pino 19.</li>
     </ul>
 
-    <p>A ligação básica do módulo Bluetooth será:</p>
+    <p>
+      No módulo, esses pinos aparecem como <strong>TXD</strong> e <strong>RXD</strong>,
+      que são o mesmo TX e RX. A ligação básica do módulo Bluetooth será:
+    </p>
 
     <table>
       <thead>
@@ -357,7 +372,7 @@ permalink: /arduino-interface-rfid-bluetooth/
     <p>Uma combinação comum é usar:</p>
 
     <ul>
-      <li>resistor de 1 kΩ entre o TX1 do Arduino e o RXD do Bluetooth;</li>
+      <li>resistor de 1 kΩ (quilo-ohm, ou 1.000 ohms, a unidade de resistência) entre o TX1 do Arduino e o RXD do Bluetooth;</li>
       <li>resistor de 2 kΩ entre o RXD do Bluetooth e o GND.</li>
     </ul>
 
@@ -573,7 +588,7 @@ Arduino Mega TX1, pino 18
       </li>
       <li>Não conecte a bateria de 9 V diretamente ao pino 5V do Arduino.</li>
       <li>Confira se todos os GNDs estão interligados.</li>
-      <li>Verifique se não existem fios soltos ou curto-circuitos na protoboard.</li>
+      <li>Verifique se não existem fios soltos ou curto-circuitos (contatos indevidos entre fios, que podem esquentar e queimar peças) na protoboard.</li>
     </ul>
 
     <div class="tinkercad">
