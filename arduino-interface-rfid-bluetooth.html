@@ -77,7 +77,7 @@ permalink: /arduino-interface-rfid-bluetooth/
       <tbody>
         <tr><td>1</td><td>Arduino Mega 2560</td><td>Impressoras 3D antigas (muitas usam Arduino Mega), projetos ou kits de robótica antigos</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/arduino-mega2560" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
         <tr><td>1</td><td>Leitor RFID compatível com Arduino</td><td>Kits de sensores ou projetos antigos; os cartões e tags podem vir de crachás, chaveiros de portaria e bilhetes de transporte</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/leitor-rfid-rc522" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
-        <tr><td>1</td><td>Módulo Bluetooth serial, como HC-05 ou HC-06</td><td>Kits de robótica ou projetos antigos</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/modulo-bluetooth-hc-05-e-hc-06" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
+        <tr><td>1</td><td>Módulo Bluetooth, como HC-05 ou HC-06</td><td>Kits de robótica ou projetos antigos</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/modulo-bluetooth-hc-05-e-hc-06" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
         <tr><td>1</td><td>Bateria de 9 V</td><td>Detector de fumaça, multímetro, microfone sem fio</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/bateria-9-v-alcalina" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
         <tr><td>1</td><td>Clipe para bateria de 9 V com plugue P4 (2,1 mm, positivo no centro) para o conector de alimentação do Arduino</td><td>Clipe: brinquedos eletrônicos, rádios portáteis. Plugue: fontes e carregadores antigos</td><td><a class="link-compra" href="https://www.mercadolivre.com.br/clip-para-bateria-9v-com-plug-p4-capa-de-protecao-arduino/up/MLBU796577046" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
         <tr><td>Vários</td><td>Jumpers macho-macho ou macho-fêmea</td><td>Cabos de rede, cabos de telefone, aparelhos eletrônicos descartados</td><td><a class="link-compra" href="https://lista.mercadolivre.com.br/jumper-arduino-macho-femea" target="_blank" rel="noopener">Mercado Livre</a></td></tr>
@@ -99,11 +99,8 @@ permalink: /arduino-interface-rfid-bluetooth/
     <p>Neste artigo, será considerada uma montagem comum usando:</p>
 
     <ul>
-      <li>um leitor RFID do tipo <strong>RC522/MFRC522</strong>, que utiliza comunicação SPI;</li>
-      <li>
-        um módulo Bluetooth serial do tipo <strong>HC-05 ou HC-06</strong>,
-        que utiliza comunicação UART;
-      </li>
+      <li>um leitor RFID do tipo <strong>RC522</strong>;</li>
+      <li>um módulo Bluetooth do tipo <strong>HC-05 ou HC-06</strong>;</li>
       <li>um <strong>Arduino Mega 2560</strong>;</li>
       <li>uma <strong>bateria de 9 V</strong> para alimentar o Arduino.</li>
     </ul>
@@ -140,7 +137,7 @@ permalink: /arduino-interface-rfid-bluetooth/
       (não o Mega) e não tem leitor RFID nem módulo Bluetooth. Por isso, no
       simulador vamos treinar a parte elétrica que dá para testar: a
       alimentação, as tensões de 5 V e 3,3 V, o divisor de tensão e o GND comum.
-      Os pinos SPI e seriais do Mega você confere direto nas tabelas deste tutorial.
+      As ligações do leitor e do Bluetooth você confere direto nas tabelas deste tutorial.
     </p>
 
     <p>Para entrar no laboratório:</p>
@@ -229,21 +226,14 @@ permalink: /arduino-interface-rfid-bluetooth/
 
     <p>
       O leitor RFID será responsável por identificar cartões ou tags por aproximação.
-      No caso de módulos RFID RC522/MFRC522, a comunicação com o Arduino é feita
-      por meio do barramento <strong>SPI</strong>.
+      Ele conversa com o Arduino por vários fios. Os pinos <strong>SCK</strong>,
+      <strong>MOSI</strong> e <strong>MISO</strong> do leitor precisam ir sempre nos
+      pinos 52, 51 e 50 do Arduino Mega. Os pinos <strong>SDA</strong> e
+      <strong>RST</strong> podem ir em outros pinos, desde que o código use os
+      mesmos números.
     </p>
 
-    <p>No Arduino Mega, os principais pinos SPI são:</p>
-
-    <ul>
-      <li><strong>MISO</strong> → pino 50;</li>
-      <li><strong>MOSI</strong> → pino 51;</li>
-      <li><strong>SCK</strong> → pino 52;</li>
-      <li><strong>SS/SDA</strong> → pino digital escolhido para seleção do módulo;</li>
-      <li><strong>RST</strong> → pino digital escolhido para reset do módulo.</li>
-    </ul>
-
-    <p>Uma ligação comum para o leitor RFID RC522 no Arduino Mega é:</p>
+    <p>Neste tutorial, a ligação do leitor RFID RC522 ao Arduino Mega é:</p>
 
     <table>
       <thead>
@@ -255,7 +245,7 @@ permalink: /arduino-interface-rfid-bluetooth/
       <tbody>
         <tr><td>VCC</td><td>3.3V</td></tr>
         <tr><td>GND</td><td>GND</td></tr>
-        <tr><td>SDA ou SS</td><td>D53</td></tr>
+        <tr><td>SDA</td><td>D53</td></tr>
         <tr><td>SCK</td><td>D52</td></tr>
         <tr><td>MOSI</td><td>D51</td></tr>
         <tr><td>MISO</td><td>D50</td></tr>
@@ -263,11 +253,6 @@ permalink: /arduino-interface-rfid-bluetooth/
         <tr><td>IRQ</td><td>Não utilizado</td></tr>
       </tbody>
     </table>
-
-    <p>
-      O pino <strong>SDA</strong> do RC522 não é um pino I2C nesse caso.
-      Em muitos módulos, ele representa o pino <strong>SS</strong> da comunicação SPI.
-    </p>
 
     <div class="warning">
       <strong>Atenção:</strong>
@@ -290,7 +275,7 @@ permalink: /arduino-interface-rfid-bluetooth/
       [IMAGEM 4 — Leitor RFID conectado ao Arduino Mega]
     </div>
     <figcaption>
-      Conexões SPI entre o leitor RFID e o Arduino Mega.
+      Ligações entre o leitor RFID e o Arduino Mega.
     </figcaption>
   </figure>
 
@@ -300,13 +285,14 @@ permalink: /arduino-interface-rfid-bluetooth/
     <p>
       O módulo Bluetooth será utilizado para enviar ou receber dados sem fio.
       Em projetos com Arduino, módulos como HC-05 e HC-06 são bastante comuns.
-      Eles se comunicam com o Arduino por meio de comunicação serial.
+      Eles conversam com o Arduino por dois fios: o <strong>TX</strong>, que
+      envia dados, e o <strong>RX</strong>, que recebe.
     </p>
 
     <p>
-      O Arduino Mega possui portas seriais extras, o que facilita bastante
-      a montagem. Neste projeto, usaremos a porta <strong>Serial1</strong>,
-      formada pelos pinos:
+      O Arduino Mega tem pinos extras para isso, separados dos pinos usados
+      pelo cabo USB, o que facilita bastante a montagem. Neste projeto,
+      usaremos os pinos marcados na placa como:
     </p>
 
     <ul>
@@ -331,7 +317,7 @@ permalink: /arduino-interface-rfid-bluetooth/
       </tbody>
     </table>
 
-    <p>A conexão serial sempre deve ser cruzada:</p>
+    <p>Os fios devem ser cruzados, porque quem envia precisa falar com quem recebe:</p>
 
     <ul>
       <li>TX do Bluetooth → RX do Arduino;</li>
@@ -339,7 +325,7 @@ permalink: /arduino-interface-rfid-bluetooth/
     </ul>
 
     <p>
-      Como alguns módulos Bluetooth trabalham com lógica de 3,3 V no pino RXD,
+      Como alguns módulos Bluetooth só aceitam sinais de 3,3 V no pino RXD,
       recomenda-se usar um divisor de tensão entre o pino TX1 do Arduino e o RXD
       do módulo Bluetooth.
     </p>
@@ -350,7 +336,7 @@ permalink: /arduino-interface-rfid-bluetooth/
       [IMAGEM 5 — Módulo Bluetooth conectado aos pinos 18 e 19 do Arduino Mega]
     </div>
     <figcaption>
-      Conexão serial entre o Arduino Mega e o módulo Bluetooth.
+      Ligações entre o Arduino Mega e o módulo Bluetooth.
     </figcaption>
   </figure>
 
@@ -465,7 +451,7 @@ Arduino Mega TX1, pino 18
   <section>
     <h2>6. Resumo das conexões</h2>
 
-    <h3>Leitor RFID RC522/MFRC522</h3>
+    <h3>Leitor RFID RC522</h3>
 
     <table>
       <thead>
@@ -477,7 +463,7 @@ Arduino Mega TX1, pino 18
       <tbody>
         <tr><td>VCC</td><td>3.3V</td></tr>
         <tr><td>GND</td><td>GND</td></tr>
-        <tr><td>SDA/SS</td><td>D53</td></tr>
+        <tr><td>SDA</td><td>D53</td></tr>
         <tr><td>SCK</td><td>D52</td></tr>
         <tr><td>MOSI</td><td>D51</td></tr>
         <tr><td>MISO</td><td>D50</td></tr>
@@ -516,7 +502,7 @@ Arduino Mega TX1, pino 18
         <tr><td>positivo da bateria de 9 V</td><td>conector de alimentação do Arduino ou VIN</td></tr>
         <tr><td>negativo da bateria de 9 V</td><td>GND do Arduino</td></tr>
         <tr><td>5V do Arduino</td><td>módulo Bluetooth, se compatível</td></tr>
-        <tr><td>3.3V do Arduino</td><td>leitor RFID RC522/MFRC522</td></tr>
+        <tr><td>3.3V do Arduino</td><td>leitor RFID RC522</td></tr>
         <tr><td>GND do Arduino</td><td>GND do RFID e GND do Bluetooth</td></tr>
       </tbody>
     </table>
@@ -542,7 +528,7 @@ Arduino Mega TX1, pino 18
 
     <p>
       Quando uma tag ou cartão RFID é aproximado do leitor, o módulo RFID
-      envia os dados para o Arduino por meio da comunicação SPI.
+      envia os dados para o Arduino pelos fios de ligação.
     </p>
 
     <p>
@@ -583,7 +569,7 @@ Arduino Mega TX1, pino 18
       <li>Certifique-se de que TX e RX do Bluetooth foram cruzados corretamente.</li>
       <li>
         Use divisor de tensão no RXD do Bluetooth se o módulo não aceitar
-        lógica de 5 V.
+        sinais de 5 V.
       </li>
       <li>Não conecte a bateria de 9 V diretamente ao pino 5V do Arduino.</li>
       <li>Confira se todos os GNDs estão interligados.</li>
@@ -609,11 +595,11 @@ Cartão ou tag RFID
         v
  Leitor RFID RC522
         |
-        | comunicação SPI
+        | fios de dados
         v
  Arduino Mega
         |
-        | comunicação serial
+        | fios TX e RX
         v
  Módulo Bluetooth
         |
@@ -653,9 +639,8 @@ GND Arduino ───── GND RFID ───── GND Bluetooth ────�
 
     <p>
       O Arduino Mega é uma boa escolha para esse tipo de projeto porque possui
-      várias portas digitais e portas seriais extras, permitindo conectar o
-      módulo Bluetooth sem interferir na comunicação USB usada para programação
-      e monitoramento.
+      muitos pinos, inclusive pinos extras para o Bluetooth, que não atrapalham
+      o cabo USB usado para carregar o código no Arduino.
     </p>
 
     <p>
