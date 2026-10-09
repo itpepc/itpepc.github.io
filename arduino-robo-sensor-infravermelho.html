@@ -79,6 +79,8 @@ permalink: /arduino-robo-sensor-infravermelho/
         <tr><td>1</td><td>Arduino Uno R3</td><td>Projetos ou kits de robótica antigos</td><td><a class="link-compra" href="#">[link de compra]</a></td></tr>
         <tr><td>1</td><td>Sensor infravermelho MH Flying Fish</td><td>Kits de sensores ou projetos antigos</td><td><a class="link-compra" href="#">[link de compra]</a></td></tr>
         <tr><td>2</td><td>Motores DC com engrenagem</td><td>Carrinho de controle remoto, brinquedos motorizados</td><td><a class="link-compra" href="#">[link de compra]</a></td></tr>
+        <tr><td>4</td><td>Rodas: próprias para o motor DC com engrenagem ou feitas de papelão ou outro material reutilizado</td><td>Carrinhos de brinquedo, tampas de pote, papelão grosso de caixas</td><td><a class="link-compra" href="#">[link de compra]</a></td></tr>
+        <tr><td>1</td><td>Fio de metal rígido (cerca de 2 mm de espessura) para servir de eixo das rodas traseiras</td><td>Cabide de arame, vareta de guarda-chuva quebrado</td><td><a class="link-compra" href="#">[link de compra]</a></td></tr>
         <tr><td>1</td><td>Ponte H de dois canais compatível com os motores</td><td>Kits de robótica ou projetos antigos</td><td><a class="link-compra" href="#">[link de compra]</a></td></tr>
         <tr><td>1</td><td>Bateria de 9 V para alimentação do Arduino</td><td>Detector de fumaça, multímetro, microfone sem fio</td><td><a class="link-compra" href="#">[link de compra]</a></td></tr>
         <tr><td>1</td><td>Clipe para bateria de 9 V com plugue P4 (2,1 mm, positivo no centro) para o conector de alimentação do Arduino</td><td>Clipe: brinquedos eletrônicos, rádios portáteis. Plugue: fontes e carregadores antigos</td><td><a class="link-compra" href="#">[link de compra]</a></td></tr>
@@ -298,7 +300,110 @@ permalink: /arduino-robo-sensor-infravermelho/
   </figure>
 
   <section>
-    <h2>3. Alimentando os motores</h2>
+    <h2>3. Montando as rodas</h2>
+
+    <p>
+      O robô terá <strong>quatro rodas</strong>. As duas <strong>dianteiras</strong>
+      são as que fazem o robô andar: cada uma é montada diretamente no eixo de um
+      motor. As duas <strong>traseiras</strong> apenas acompanham o movimento e
+      giram soltas em um eixo feito de <strong>fio de metal</strong>.
+    </p>
+
+    <h3>Escolhendo as rodas</h3>
+
+    <p>Você pode usar dois tipos de roda:</p>
+
+    <ul>
+      <li>
+        <strong>Rodas próprias para o motor</strong>: já vêm com o furo no formato
+        do eixo do motor e encaixam sob pressão.
+        <a class="link-compra" href="#">[link de compra]</a>
+      </li>
+      <li>
+        <strong>Rodas feitas de material reutilizado</strong>: papelão grosso,
+        tampas de pote, CDs velhos ou rodas de carrinhos de brinquedo.
+      </li>
+    </ul>
+
+    <p>Para fazer rodas de papelão:</p>
+
+    <ol>
+      <li>
+        Desenhe um círculo de cerca de <strong>6 cm</strong> de diâmetro usando
+        um copo ou uma tampa como molde.
+      </li>
+      <li>
+        Recorte de 3 a 4 círculos iguais para cada roda e cole uns sobre os outros:
+        quanto mais camadas, mais firme a roda fica.
+      </li>
+      <li>Marque o centro exato do círculo e faça um pequeno furo.</li>
+      <li>
+        Se quiser mais aderência ao chão, passe um elástico ou um pouco de cola
+        quente em volta da borda.
+      </li>
+    </ol>
+
+    <div class="warning">
+      <strong>Importante:</strong>
+      o furo precisa ficar bem no centro. Uma roda com o furo fora do centro faz
+      o robô andar “mancando”.
+    </div>
+
+    <h3>Rodas dianteiras: uma em cada motor</h3>
+
+    <ol>
+      <li>
+        Encaixe uma roda no eixo do <strong>Motor M1</strong> e a outra no eixo do
+        <strong>Motor M2</strong>.
+      </li>
+      <li>
+        Se a roda for de material reutilizado, faça o furo do tamanho do eixo do
+        motor e prenda com cola quente, tomando cuidado para a cola não escorrer
+        para dentro da caixa de engrenagens do motor.
+      </li>
+      <li>Gire cada roda com a mão e confira se ela não está torta ou bamba.</li>
+    </ol>
+
+    <h3>Rodas traseiras: o eixo de fio de metal</h3>
+
+    <ol>
+      <li>
+        Corte um pedaço de fio de metal com a largura do robô mais cerca de
+        <strong>4 cm</strong>, para sobrar 2 cm de cada lado para as rodas.
+      </li>
+      <li>
+        Prenda o eixo na parte de trás da base do robô de forma que ele possa
+        girar. Uma dica é passar o fio por dentro de um pedaço de canudo e colar
+        apenas o canudo na base: assim o fio gira livre dentro dele.
+      </li>
+      <li>
+        Encaixe uma roda em cada ponta do fio e fixe com cola quente, para que as
+        rodas girem junto com o eixo.
+      </li>
+      <li>
+        Se as rodas compradas tiverem o furo maior que o fio, preencha a folga com
+        cola quente, mantendo a roda reta enquanto a cola esfria.
+      </li>
+    </ol>
+
+    <div class="warning">
+      <strong>Cuidado:</strong>
+      as pontas do fio de metal cortado podem ser afiadas. Peça ajuda a um adulto
+      para cortar o fio com um alicate e cubra as pontas com cola quente ou fita.
+    </div>
+  </section>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 10 — Rodas dianteiras montadas nos motores e rodas traseiras no eixo de fio de metal]
+    </div>
+    <figcaption>
+      Rodas dianteiras presas aos motores e rodas traseiras girando livres no eixo de metal.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>4. Alimentando os motores</h2>
 
     <p>
       Os motores utilizarão uma alimentação independente formada por
@@ -349,7 +454,7 @@ permalink: /arduino-robo-sensor-infravermelho/
   </figure>
 
   <section>
-    <h2>4. Criando um GND comum</h2>
+    <h2>5. Criando um GND comum</h2>
 
     <p>
       O Arduino e os motores possuem fontes de alimentação diferentes,
@@ -393,7 +498,7 @@ permalink: /arduino-robo-sensor-infravermelho/
   </figure>
 
   <section>
-    <h2>5. Conectando o Arduino às entradas da ponte H</h2>
+    <h2>6. Conectando o Arduino às entradas da ponte H</h2>
 
     <p>
       Uma ponte H de dois canais normalmente possui entradas responsáveis
@@ -473,7 +578,7 @@ permalink: /arduino-robo-sensor-infravermelho/
   </figure>
 
   <section>
-    <h2>6. Resumo das conexões</h2>
+    <h2>7. Resumo das conexões</h2>
 
     <h3>Sensor infravermelho</h3>
     <ul>
@@ -516,7 +621,7 @@ permalink: /arduino-robo-sensor-infravermelho/
   </figure>
 
   <section>
-    <h2>7. Como o circuito funciona</h2>
+    <h2>8. Como o circuito funciona</h2>
 
     <p>
       Quando o circuito é ligado, o sensor MH Flying Fish monitora continuamente
@@ -555,7 +660,7 @@ permalink: /arduino-robo-sensor-infravermelho/
   </section>
 
   <section>
-    <h2>8. Verificação antes de ligar</h2>
+    <h2>9. Verificação antes de ligar</h2>
 
     <p>Antes de conectar as fontes de energia, faça uma última conferência.</p>
 
@@ -570,6 +675,7 @@ permalink: /arduino-robo-sensor-infravermelho/
       <li>Confirme a ligação entre o GND do Arduino e o GND da ponte H.</li>
       <li>Verifique se o sensor está conectado à tensão correta.</li>
       <li>Certifique-se de que não existem fios soltos ou em curto-circuito.</li>
+      <li>Gire as quatro rodas com a mão e confira se elas giram sem raspar em fios ou na base.</li>
     </ul>
 
     <div class="tinkercad">
@@ -581,7 +687,7 @@ permalink: /arduino-robo-sensor-infravermelho/
   </section>
 
   <section>
-    <h2>9. Ligando o robô: alimentando o Arduino Uno</h2>
+    <h2>10. Ligando o robô: alimentando o Arduino Uno</h2>
 
     <p>
       Com todas as conexões feitas e conferidas, chegou a hora de dar energia
@@ -640,7 +746,7 @@ permalink: /arduino-robo-sensor-infravermelho/
   </figure>
 
   <section>
-    <h2>10. Estrutura final do projeto</h2>
+    <h2>11. Estrutura final do projeto</h2>
 
     <pre>
 MH Flying Fish
