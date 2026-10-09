@@ -16,6 +16,6 @@ layout: home
 
 - [Montagem do robô]({{ '/arduino-robo-sensor-infravermelho/' | relative_url }})
 - [Montagem da Interface]({{ '/arduino-interface-rfid-bluetooth/' | relative_url }})
-- [Escrita dos Blocos]({{ '/escrita-dos-blocos/' | relative_url }})
+- [Escrita dos Cartões]({{ '/escrita-dos-blocos/' | relative_url }})
 
 </div>
