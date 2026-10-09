@@ -1,0 +1,461 @@
+---
+layout: default
+lang: pt-BR
+title: Escrita dos Blocos
+permalink: /escrita-dos-blocos/
+codigo_url: ""
+---
+
+<style>
+  .image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    padding: 1em;
+    border: 2px dashed #aaa;
+    background: #f5f5f5;
+    color: #666;
+    text-align: center;
+  }
+  figure { margin: 1.5em 0; }
+  figcaption { font-size: 0.9em; color: #666; margin-top: 0.5em; }
+  .warning {
+    border-left: 4px solid #e0a800;
+    background: #fff8e1;
+    padding: 0.75em 1em;
+    margin: 1em 0;
+  }
+  .tip {
+    border-left: 4px solid #1477d1;
+    background: #eaf4fd;
+    padding: 0.75em 1em;
+    margin: 1em 0;
+  }
+  .codigo-link {
+    display: inline-block;
+    padding: 0.6em 1.2em;
+    border-radius: 4px;
+    background: #1477d1;
+    color: #fff;
+    font-weight: bold;
+  }
+  .codigo-link:hover { color: #fff; text-decoration: none; background: #0f5fa8; }
+</style>
+
+<article>
+
+  <header>
+    <h1>Escrita dos Blocos</h1>
+
+    <p>
+      Neste tutorial, você vai aprender a carregar o <strong>código de escrita</strong>
+      no Arduino usando a <strong>IDE Arduino</strong> e a gravar informações nos
+      <strong>cartões RFID</strong> usando a interface que você montou no tutorial
+      <a href="{{ '/arduino-interface-rfid-bluetooth/' | relative_url }}">Montagem da Interface</a>.
+    </p>
+
+    <p>
+      Cada cartão vai funcionar como um “bloco” com uma informação guardada dentro dele.
+      Depois de gravados, os cartões poderão ser lidos pela interface sempre que forem
+      aproximados do leitor.
+    </p>
+  </header>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 1 — Cartão RFID sendo aproximado do leitor da interface]
+    </div>
+    <figcaption>
+      A escrita acontece quando o cartão é aproximado do leitor RFID da interface.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>Materiais necessários</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Quantidade</th>
+          <th>Item</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Vários</td><td>Cartões ou tags RFID compatíveis com o leitor RC522 (MIFARE Classic de 13,56 MHz)</td></tr>
+        <tr>
+          <td>1</td>
+          <td>
+            Interface montada corretamente, conforme o tutorial
+            <a href="{{ '/arduino-interface-rfid-bluetooth/' | relative_url }}">Montagem da Interface</a>
+          </td>
+        </tr>
+        <tr><td>1</td><td>Computador com a IDE Arduino instalada</td></tr>
+        <tr><td>1</td><td>Cabo USB para conectar o Arduino Mega ao computador</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      Se ainda não tem a IDE Arduino, baixe-a gratuitamente em
+      <a href="https://www.arduino.cc/en/software" target="_blank" rel="noopener">arduino.cc/en/software</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Antes de começar: como um cartão RFID guarda informações</h2>
+
+    <p>
+      Os cartões RFID mais comuns usados com o leitor RC522 são do tipo
+      <strong>MIFARE Classic 1K</strong>. A memória desses cartões é dividida
+      em <strong>16 setores</strong>, e cada setor tem <strong>4 blocos</strong>
+      de <strong>16 bytes</strong>. Ou seja, cada bloco guarda até 16 caracteres.
+    </p>
+
+    <p>Nem todos os blocos podem ser usados livremente:</p>
+
+    <ul>
+      <li>
+        o <strong>bloco 0</strong> guarda o número de identificação do cartão,
+        gravado pelo fabricante, e não deve ser alterado;
+      </li>
+      <li>
+        o <strong>último bloco de cada setor</strong> (blocos 3, 7, 11, 15 e assim
+        por diante) guarda as chaves de acesso daquele setor;
+      </li>
+      <li>os demais blocos, como 1, 2, 4, 5 e 6, podem guardar os seus dados.</li>
+    </ul>
+
+    <div class="warning">
+      <strong>Atenção:</strong>
+      nunca grave dados no último bloco de um setor. Se as chaves de acesso forem
+      apagadas ou trocadas por engano, aquele setor do cartão pode ficar bloqueado
+      para sempre.
+    </div>
+  </section>
+
+  <section>
+    <h2>1. Baixando o código de escrita</h2>
+
+    <p>O código de escrita está disponível no link abaixo:</p>
+
+    <p>
+      {% if page.codigo_url != "" %}
+        <a class="codigo-link" href="{{ page.codigo_url }}" target="_blank" rel="noopener">Baixar o código de escrita</a>
+      {% else %}
+        <em>[O link para o código de escrita será disponibilizado aqui em breve.]</em>
+      {% endif %}
+    </p>
+
+    <p>
+      Salve o arquivo no seu computador. Os programas do Arduino têm a extensão
+      <strong>.ino</strong> e precisam ficar dentro de uma pasta com o mesmo nome
+      do arquivo. Por exemplo, o arquivo <code>escrita.ino</code> deve ficar
+      dentro de uma pasta chamada <code>escrita</code>. Se a IDE perguntar se
+      pode criar essa pasta, responda que sim.
+    </p>
+  </section>
+
+  <section>
+    <h2>2. Instalando a biblioteca do leitor RFID</h2>
+
+    <p>
+      Para conversar com o leitor RC522, o código usa uma
+      <strong>biblioteca</strong>: um conjunto de funções prontas que alguém
+      já escreveu para facilitar o trabalho.
+    </p>
+
+    <ol>
+      <li>Abra a IDE Arduino.</li>
+      <li>
+        Clique no ícone de <strong>Gerenciador de Bibliotecas</strong>, na barra
+        lateral esquerda, ou acesse o menu
+        <strong>Ferramentas → Gerenciar Bibliotecas</strong>.
+      </li>
+      <li>Na busca, digite <strong>MFRC522</strong>.</li>
+      <li>
+        Encontre a biblioteca <strong>MFRC522</strong> da
+        <strong>GithubCommunity</strong> e clique em <strong>Instalar</strong>.
+      </li>
+    </ol>
+
+    <div class="tip">
+      <strong>Dica:</strong>
+      se o código de escrita usar outras bibliotecas, elas aparecem nas primeiras
+      linhas do arquivo, nas linhas que começam com <code>#include</code>.
+      Se a IDE reclamar que não encontrou alguma delas, procure o nome no
+      Gerenciador de Bibliotecas e instale da mesma forma.
+    </div>
+  </section>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 2 — Gerenciador de Bibliotecas da IDE Arduino com a biblioteca MFRC522]
+    </div>
+    <figcaption>
+      Instalação da biblioteca MFRC522 pelo Gerenciador de Bibliotecas.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>3. Abrindo o código e conferindo os pinos</h2>
+
+    <ol>
+      <li>Na IDE Arduino, acesse <strong>Arquivo → Abrir</strong>.</li>
+      <li>Selecione o arquivo <strong>.ino</strong> do código de escrita.</li>
+    </ol>
+
+    <p>
+      Procure no início do código as linhas que indicam os pinos do leitor RFID.
+      Elas devem bater com as ligações feitas na montagem da interface:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Pino do leitor RFID</th>
+          <th>Pino no Arduino Mega</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>SDA/SS</td><td>53</td></tr>
+        <tr><td>RST</td><td>5</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      Os pinos SCK, MOSI e MISO (52, 51 e 50) não aparecem no código, porque a
+      biblioteca já sabe onde eles ficam no Arduino Mega.
+    </p>
+
+    <div class="warning">
+      <strong>Importante:</strong>
+      se você ligou o SDA ou o RST em pinos diferentes, altere os números no
+      código para os pinos que você usou. Caso contrário, o leitor não vai
+      responder.
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Conectando o Arduino ao computador</h2>
+
+    <ol>
+      <li>
+        Desconecte a bateria de 9 V da interface. Durante a gravação, o Arduino
+        será alimentado pelo cabo USB.
+      </li>
+      <li>Conecte o Arduino Mega ao computador com o cabo USB.</li>
+      <li>
+        Na IDE, acesse <strong>Ferramentas → Placa</strong> e escolha
+        <strong>Arduino Mega or Mega 2560</strong>.
+      </li>
+      <li>
+        Em <strong>Ferramentas → Porta</strong>, escolha a porta em que o
+        Arduino apareceu. No Windows, ela tem um nome como <code>COM3</code>;
+        no Linux, <code>/dev/ttyACM0</code>; no macOS,
+        <code>/dev/cu.usbmodem…</code>.
+      </li>
+    </ol>
+
+    <div class="tip">
+      <strong>Dica:</strong>
+      se não souber qual é a porta certa, olhe a lista com o Arduino desconectado
+      e depois conecte o cabo de novo. A porta que aparecer é a do seu Arduino.
+    </div>
+  </section>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 3 — Menu Ferramentas da IDE com a placa Arduino Mega e a porta selecionadas]
+    </div>
+    <figcaption>
+      Seleção da placa e da porta antes de carregar o código.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>5. Carregando o código no Arduino</h2>
+
+    <ol>
+      <li>
+        Clique no botão <strong>Verificar</strong> (o ícone de “certo”) para
+        conferir se o código compila sem erros.
+      </li>
+      <li>
+        Clique no botão <strong>Carregar</strong> (o ícone de seta para a direita)
+        para enviar o código ao Arduino.
+      </li>
+      <li>
+        Aguarde a mensagem <strong>Carregado</strong> na parte de baixo da IDE.
+        Os LEDs da placa piscam durante o envio.
+      </li>
+    </ol>
+
+    <p>
+      No Arduino Mega, o módulo Bluetooth fica ligado à porta Serial1 (pinos 18 e 19),
+      separada da porta usada pelo USB. Por isso, não é preciso desconectar o
+      Bluetooth para carregar o código.
+    </p>
+
+    <div class="tip">
+      <strong>Se aparecer um erro:</strong>
+      <ul>
+        <li>
+          “biblioteca não encontrada” ou “No such file or directory”: volte ao
+          passo 2 e instale a biblioteca indicada na mensagem;
+        </li>
+        <li>
+          erro de porta ou de comunicação: confira a placa e a porta escolhidas no
+          passo 4 e tente outro cabo USB, já que alguns cabos só servem para carregar
+          celular e não transmitem dados.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>6. Abrindo o Monitor Serial</h2>
+
+    <p>
+      O <strong>Monitor Serial</strong> é a janela onde o Arduino conversa com
+      você: ele mostra mensagens e recebe o que você digitar.
+    </p>
+
+    <ol>
+      <li>
+        Acesse <strong>Ferramentas → Monitor Serial</strong> ou clique no ícone
+        de lupa, no canto superior direito da IDE.
+      </li>
+      <li>
+        No canto da janela do monitor, escolha a mesma velocidade usada no código.
+        Para descobrir qual é, procure a linha <code>Serial.begin(...)</code> no
+        código: o número entre parênteses é a velocidade, por exemplo
+        <code>9600</code> ou <code>115200</code>.
+      </li>
+      <li>
+        Se o código pedir que você digite informações, ajuste a opção de final de
+        linha para <strong>Nova linha</strong>, a menos que as instruções do código
+        digam outra coisa.
+      </li>
+    </ol>
+
+    <p>
+      Se as mensagens aparecerem como símbolos estranhos, a velocidade escolhida
+      está diferente da do código.
+    </p>
+  </section>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 4 — Monitor Serial aberto com a velocidade selecionada]
+    </div>
+    <figcaption>
+      Monitor Serial pronto para a escrita dos cartões.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>7. Escrevendo os cartões</h2>
+
+    <p>Com o código carregado e o Monitor Serial aberto:</p>
+
+    <ol>
+      <li>Leia as instruções que o código mostra no Monitor Serial.</li>
+      <li>
+        Quando for pedido, digite a informação que deve ser gravada no cartão e
+        pressione <strong>Enter</strong>. Lembre-se de que cada bloco guarda até
+        16 caracteres.
+      </li>
+      <li>
+        Aproxime o cartão RFID do leitor, deixando-o parado a cerca de 1 a 3 cm
+        da antena, e mantenha-o ali até aparecer a mensagem de confirmação.
+      </li>
+      <li>Afaste o cartão e repita o processo com o próximo.</li>
+    </ol>
+
+    <div class="tip">
+      <strong>Dica de organização:</strong>
+      escreva no próprio cartão, com caneta permanente ou etiqueta, a informação
+      que você gravou nele. Assim fica fácil saber qual cartão é qual sem precisar
+      ler todos de novo.
+    </div>
+
+    <div class="warning">
+      <strong>Atenção:</strong>
+      não afaste o cartão do leitor no meio da gravação. Se a escrita for
+      interrompida, os dados daquele bloco podem ficar incompletos. Se isso
+      acontecer, basta gravar o cartão novamente.
+    </div>
+  </section>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 5 — Mensagem de gravação concluída no Monitor Serial]
+    </div>
+    <figcaption>
+      Confirmação de que os dados foram gravados no cartão.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>8. Se algo não funcionar</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>O que acontece</th>
+          <th>O que conferir</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Nenhuma mensagem aparece no Monitor Serial</td>
+          <td>A velocidade do monitor e a porta selecionada. Pressione o botão RESET do Arduino para reiniciar o programa.</td>
+        </tr>
+        <tr>
+          <td>O cartão não é detectado</td>
+          <td>As ligações do leitor (principalmente 3,3 V, SDA no pino 53 e RST no pino 5) e a distância do cartão até a antena.</td>
+        </tr>
+        <tr>
+          <td>Erro de autenticação</td>
+          <td>Se o cartão é do tipo MIFARE Classic e se ainda usa a chave de fábrica. Cartões de outro tipo, ou com chave alterada, não podem ser gravados por esse código.</td>
+        </tr>
+        <tr>
+          <td>Erro de escrita</td>
+          <td>Se o cartão ficou parado perto do leitor durante toda a gravação. Tente de novo.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>9. Voltando a usar a interface com a bateria</h2>
+
+    <p>Depois de gravar todos os cartões:</p>
+
+    <ol>
+      <li>Feche o Monitor Serial.</li>
+      <li>Desconecte o cabo USB do Arduino.</li>
+      <li>
+        Se for usar a interface longe do computador, conecte novamente o plugue
+        da bateria de 9 V ao conector de alimentação do Arduino.
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Conclusão</h2>
+
+    <p>
+      Pronto! Agora seus cartões RFID têm informações gravadas em seus blocos
+      e estão prontos para serem lidos pela interface.
+    </p>
+
+    <p>
+      O próximo passo é usar a interface para ler esses cartões e enviar as
+      informações pelo módulo Bluetooth.
+    </p>
+  </section>
+
+</article>
+
+{% include lightbox.html %}

@@ -1,0 +1,49 @@
+<style>
+  article figure img { cursor: zoom-in; }
+  .lightbox {
+    border: none;
+    padding: 0;
+    background: transparent;
+    max-width: 95vw;
+    max-height: 95vh;
+    cursor: zoom-out;
+  }
+  .lightbox::backdrop { background: rgba(0, 0, 0, 0.85); }
+  .lightbox img {
+    display: block;
+    max-width: 95vw;
+    max-height: 95vh;
+  }
+</style>
+
+<dialog class="lightbox" id="lightbox" aria-label="Imagem ampliada">
+  <img src="" alt="">
+</dialog>
+
+<script>
+  (function () {
+    var dialog = document.getElementById('lightbox');
+    var big = dialog.querySelector('img');
+
+    document.querySelectorAll('article figure img').forEach(function (img) {
+      img.setAttribute('tabindex', '0');
+      img.setAttribute('title', 'Clique para ampliar');
+
+      function open() {
+        big.src = img.src;
+        big.alt = img.alt;
+        dialog.showModal();
+      }
+
+      img.addEventListener('click', open);
+      img.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          open();
+        }
+      });
+    });
+
+    dialog.addEventListener('click', function () { dialog.close(); });
+  })();
+</script>

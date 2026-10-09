@@ -80,6 +80,7 @@ permalink: /arduino-robo-sensor-infravermelho/
         <tr><td>2</td><td>Motores DC com engrenagem</td><td>Carrinho de controle remoto, brinquedos motorizados</td></tr>
         <tr><td>1</td><td>Ponte H de dois canais compatível com os motores</td><td>Kits de robótica ou projetos antigos</td></tr>
         <tr><td>1</td><td>Bateria de 9 V para alimentação do Arduino</td><td>Detector de fumaça, multímetro, microfone sem fio</td></tr>
+        <tr><td>1</td><td>Clipe para bateria de 9 V com plugue P4 (2,1 mm, positivo no centro) para o conector de alimentação do Arduino</td><td>Clipe: brinquedos eletrônicos, rádios portáteis. Plugue: fontes e carregadores antigos</td></tr>
         <tr><td>6</td><td>Pilhas AA para alimentação dos motores</td><td>Controle remoto, brinquedos, relógios de parede</td></tr>
         <tr><td>1</td><td>Suporte para 6 pilhas AA</td><td>Carrinho de controle remoto, brinquedos, lanternas</td></tr>
         <tr><td>Vários</td><td>Jumpers ou fios para conexão</td><td>Cabos de rede, cabos de telefone, aparelhos eletrônicos descartados</td></tr>
@@ -127,11 +128,11 @@ permalink: /arduino-robo-sensor-infravermelho/
   </section>
 
   <figure>
-    <div class="image-placeholder">
-      [IMAGEM 2 — Exemplos de pontes H de dois canais]
-    </div>
+    <img src="{{ '/assets/img/modulo_ponte_h_dupla_l298n.webp' | relative_url }}"
+         alt="Módulo de ponte H dupla L298N com dissipador de calor, bornes azuis para motores e alimentação e pinos ENA, IN1, IN2, IN3, IN4 e ENB"
+         style="max-width: 400px;">
     <figcaption>
-      Exemplos de módulos de ponte H capazes de controlar dois motores DC.
+      Exemplo de módulo de ponte H dupla baseado no L298N, capaz de controlar dois motores DC.
     </figcaption>
   </figure>
 
@@ -196,50 +197,7 @@ permalink: /arduino-robo-sensor-infravermelho/
   </section>
 
   <section>
-    <h2>1. Alimentando o Arduino Uno</h2>
-
-    <p>
-      O Arduino será alimentado separadamente utilizando uma bateria de
-      <strong>9 V</strong>.
-    </p>
-
-    <p>
-      A maneira mais simples é utilizar o conector de alimentação do próprio
-      Arduino Uno.
-    </p>
-
-    <p>Caso seja utilizada a entrada VIN, faça a seguinte conexão:</p>
-
-    <ul>
-      <li>positivo da bateria → <strong>VIN</strong> do Arduino;</li>
-      <li>negativo da bateria → <strong>GND</strong> do Arduino.</li>
-    </ul>
-
-    <div class="warning">
-      <strong>Atenção:</strong>
-      não conecte uma bateria de 9 V diretamente ao pino 5V do Arduino.
-    </div>
-
-    <div class="tinkercad">
-      <strong>Missão 1 no Tinkercad: o café da manhã do cérebro</strong>
-      Siga o fio que sai do positivo da bateria de 9 V: ele precisa chegar ao
-      <strong>VIN</strong>, e o negativo ao <strong>GND</strong>. Passe o mouse
-      nas pontas para confirmar. Se algum fio estiver no pino 5V, é hora de
-      trocar de lugar antes que o robô tenha uma indigestão!
-    </div>
-  </section>
-
-  <figure>
-    <div class="image-placeholder">
-      [IMAGEM 3 — Bateria de 9 V conectada ao Arduino Uno]
-    </div>
-    <figcaption>
-      Alimentação independente do Arduino Uno utilizando bateria de 9 V.
-    </figcaption>
-  </figure>
-
-  <section>
-    <h2>2. Conectando o sensor infravermelho MH Flying Fish</h2>
+    <h2>1. Conectando o sensor infravermelho MH Flying Fish</h2>
 
     <p>O sensor MH Flying Fish será utilizado para detectar obstáculos.</p>
 
@@ -278,7 +236,7 @@ permalink: /arduino-robo-sensor-infravermelho/
     </p>
 
     <div class="tinkercad">
-      <strong>Missão 2 no Tinkercad: abrindo os olhos do robô</strong>
+      <strong>Missão 1 no Tinkercad: abrindo os olhos do robô</strong>
       Encontre o sensor e confira os três fios: VCC no <strong>5V</strong>,
       GND no <strong>GND</strong> e o sinal no pino <strong>D2</strong>.
       Depois inicie a simulação e clique no sensor: em muitos sensores do
@@ -297,7 +255,7 @@ permalink: /arduino-robo-sensor-infravermelho/
   </figure>
 
   <section>
-    <h2>3. Conectando os motores à ponte H</h2>
+    <h2>2. Conectando os motores à ponte H</h2>
 
     <p>Os motores não devem ser conectados diretamente aos pinos do Arduino.</p>
 
@@ -321,7 +279,7 @@ permalink: /arduino-robo-sensor-infravermelho/
     </p>
 
     <div class="tinkercad">
-      <strong>Missão 3 no Tinkercad: cada roda no seu lugar</strong>
+      <strong>Missão 2 no Tinkercad: cada roda no seu lugar</strong>
       Siga os dois fios de cada motor até a ponte H. O Motor M1 deve estar
       nas saídas do <strong>Canal A</strong> e o M2 nas do <strong>Canal B</strong>.
       Se algum fio de motor for direto para o Arduino, você achou um intruso:
@@ -339,7 +297,7 @@ permalink: /arduino-robo-sensor-infravermelho/
   </figure>
 
   <section>
-    <h2>4. Alimentando os motores</h2>
+    <h2>3. Alimentando os motores</h2>
 
     <p>
       Os motores utilizarão uma alimentação independente formada por
@@ -372,7 +330,7 @@ permalink: /arduino-robo-sensor-infravermelho/
     </div>
 
     <div class="tinkercad">
-      <strong>Missão 4 no Tinkercad: o lanche dos músculos</strong>
+      <strong>Missão 3 no Tinkercad: o lanche dos músculos</strong>
       Clique no conjunto de pilhas e veja quantas pilhas e qual tensão ele
       mostra. Depois confira: o positivo vai para a entrada de alimentação
       dos motores da ponte H e o negativo para o GND da ponte H.
@@ -390,7 +348,7 @@ permalink: /arduino-robo-sensor-infravermelho/
   </figure>
 
   <section>
-    <h2>5. Criando um GND comum</h2>
+    <h2>4. Criando um GND comum</h2>
 
     <p>
       O Arduino e os motores possuem fontes de alimentação diferentes,
@@ -416,7 +374,7 @@ permalink: /arduino-robo-sensor-infravermelho/
     </p>
 
     <div class="tinkercad">
-      <strong>Missão 5 no Tinkercad: o aperto de mão</strong>
+      <strong>Missão 4 no Tinkercad: o aperto de mão</strong>
       Procure o fio que liga o GND do Arduino ao GND da ponte H. Ele é o
       “aperto de mão” que faz os dois se entenderem. Faça um teste: apague
       esse fio, inicie a simulação e veja o que acontece. Depois desfaça
@@ -434,7 +392,7 @@ permalink: /arduino-robo-sensor-infravermelho/
   </figure>
 
   <section>
-    <h2>6. Conectando o Arduino às entradas da ponte H</h2>
+    <h2>5. Conectando o Arduino às entradas da ponte H</h2>
 
     <p>
       Uma ponte H de dois canais normalmente possui entradas responsáveis
@@ -496,7 +454,7 @@ permalink: /arduino-robo-sensor-infravermelho/
     </p>
 
     <div class="tinkercad">
-      <strong>Missão 6 no Tinkercad: os fios mensageiros</strong>
+      <strong>Missão 5 no Tinkercad: os fios mensageiros</strong>
       Confira os quatro fios que levam as ordens do Arduino para a ponte H:
       D5 e D6 para o Motor M1, D9 e D10 para o Motor M2. Dica de detetive:
       dê uma cor diferente para cada fio (clique no fio e escolha a cor).
@@ -514,7 +472,7 @@ permalink: /arduino-robo-sensor-infravermelho/
   </figure>
 
   <section>
-    <h2>7. Resumo das conexões</h2>
+    <h2>6. Resumo das conexões</h2>
 
     <h3>Sensor infravermelho</h3>
     <ul>
@@ -540,7 +498,7 @@ permalink: /arduino-robo-sensor-infravermelho/
 
     <h3>Alimentação</h3>
     <ul>
-      <li>Bateria de 9 V → Arduino Uno;</li>
+      <li>Bateria de 9 V com plugue P4 → conector de alimentação (7 V a 12 V) do Arduino Uno, ligada por último;</li>
       <li>6 pilhas AA → entrada de potência da ponte H;</li>
       <li>GND do Arduino → GND da ponte H;</li>
       <li>negativo das pilhas → GND da ponte H.</li>
@@ -557,7 +515,7 @@ permalink: /arduino-robo-sensor-infravermelho/
   </figure>
 
   <section>
-    <h2>8. Como o circuito funciona</h2>
+    <h2>7. Como o circuito funciona</h2>
 
     <p>
       Quando o circuito é ligado, o sensor MH Flying Fish monitora continuamente
@@ -585,10 +543,18 @@ permalink: /arduino-robo-sensor-infravermelho/
       <li>girar para um dos lados;</li>
       <li>continuar andando depois que o caminho estiver livre.</li>
     </ol>
+
+    <figure>
+      <img src="{{ '/assets/img/infografico-robo-desvia-obstaculos.png' | relative_url }}"
+           alt="Infográfico do robô desvia-obstáculos: o sensor infravermelho detecta o objeto, envia o sinal ao pino D2 do Arduino, que comanda a ponte H e os dois motores; abaixo, a sequência andar para frente, parar, recuar, girar e continuar andando">
+      <figcaption>
+        Infográfico do robô desvia-obstáculos: do sensor aos motores, e as ações que o robô pode executar.
+      </figcaption>
+    </figure>
   </section>
 
   <section>
-    <h2>9. Verificação antes de ligar</h2>
+    <h2>8. Verificação antes de ligar</h2>
 
     <p>Antes de conectar as fontes de energia, faça uma última conferência.</p>
 
@@ -606,14 +572,71 @@ permalink: /arduino-robo-sensor-infravermelho/
     </ul>
 
     <div class="tinkercad">
-      <strong>Missão final no Tinkercad: o ensaio geral</strong>
-      Percorra esta lista no simulador, item por item, e depois clique em
-      <strong>Iniciar simulação</strong>. Se o Tinkercad mostrar algum alerta
-      ou um componente se comportar de um jeito estranho, volte à missão da
-      etapa correspondente e investigue. Tudo certo na tela? Parabéns, você
-      desbloqueou a montagem de verdade!
+      <strong>Missão 6 no Tinkercad: o ensaio geral</strong>
+      Percorra esta lista no simulador, item por item. Se encontrar algo
+      estranho, volte à missão da etapa correspondente e investigue.
+      Tudo certo na tela? Então você desbloqueou o último passo: ligar o robô!
     </div>
   </section>
+
+  <section>
+    <h2>9. Ligando o robô: alimentando o Arduino Uno</h2>
+
+    <p>
+      Com todas as conexões feitas e conferidas, chegou a hora de dar energia
+      ao cérebro do robô. O Arduino será alimentado separadamente por uma
+      bateria de <strong>9 V</strong>.
+    </p>
+
+    <p>
+      A bateria deve ter um <strong>clipe com plugue P4</strong> (conector
+      redondo de 2,1 mm com o positivo no centro). Esse plugue é encaixado no
+      <strong>conector de alimentação</strong> do Arduino Uno, a entrada
+      redonda e preta ao lado da porta USB, que aceita de
+      <strong>7 V a 12 V</strong>.
+    </p>
+
+    <p>
+      Por esse conector, a tensão da bateria passa pelo regulador da placa,
+      que a reduz para os 5 V usados pelo Arduino e pelo sensor.
+    </p>
+
+    <div class="warning">
+      <strong>Atenção:</strong>
+      nunca ligue os fios da bateria de 9 V no pino <strong>5V</strong> do
+      Arduino. Esse pino não passa pelo regulador e a placa pode queimar.
+    </div>
+
+    <div class="tinkercad">
+      <strong>Missão final no Tinkercad: hora de acordar o robô</strong>
+      Coloque a bateria de 9 V por último, assim como na montagem real.
+      Se o simulador não permitir encaixar a bateria no conector redondo,
+      ligue o positivo ao <strong>VIN</strong> e o negativo ao
+      <strong>GND</strong>: no circuito virtual é o caminho equivalente,
+      que também passa pelo regulador. Confira se nenhum fio da bateria foi
+      parar no pino 5V e clique em <strong>Iniciar simulação</strong>.
+      Bom dia, robô!
+    </div>
+
+    <div class="warning">
+      <strong>Apareceu uma explosão?</strong>
+      Se, durante a simulação, o Tinkercad mostrar um ícone de explosão em
+      qualquer componente ou conexão, significa que alguma ligação está errada.
+      No simulador o estrago é só de mentirinha, mas no circuito real ele
+      pode queimar peças de verdade! Pare a simulação, descubra qual ligação
+      causou o problema e revise com atenção a mesma ligação na montagem real
+      do Arduino antes de ligar a bateria.
+    </div>
+  </section>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 3 — Bateria de 9 V com plugue P4 encaixada no conector de alimentação do Arduino Uno]
+    </div>
+    <figcaption>
+      O plugue da bateria de 9 V vai no conector de alimentação de 7 V a 12 V do Arduino Uno.
+    </figcaption>
+  </figure>
 
   <section>
     <h2>10. Estrutura final do projeto</h2>
@@ -676,3 +699,5 @@ GND Arduino ───── GND Ponte H ───── Negativo das pilhas
   </section> -->
 
 </article>
+
+{% include lightbox.html %}
