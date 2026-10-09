@@ -83,7 +83,7 @@ codigo_url: ""
         </tr>
       </thead>
       <tbody>
-        <tr><td>7</td><td>Cartões ou tags RFID compatíveis com o leitor RC522 (MIFARE Classic de 13,56 MHz)</td><td><a class="link-compra" href="#">[link de compra]</a></td></tr>
+        <tr><td>7</td><td>Cartões ou tags RFID compatíveis com o leitor RC522</td><td><a class="link-compra" href="#">[link de compra]</a></td></tr>
         <tr>
           <td>1</td>
           <td>
@@ -117,10 +117,9 @@ codigo_url: ""
     </p>
 
     <p>
-      Os cartões RFID mais comuns usados com o leitor RC522 são do tipo
-      <strong>MIFARE Classic 1K</strong>. A memória desses cartões é dividida
-      em <strong>16 setores</strong>, e cada setor tem <strong>4 blocos</strong>
-      de <strong>16 bytes</strong>. Ou seja, cada bloco guarda até 16 caracteres.
+      A memória dos cartões usados com o leitor RC522 é dividida em
+      <strong>16 setores</strong>, e cada setor tem <strong>4 blocos</strong>.
+      Cada bloco guarda até <strong>16 caracteres</strong>.
     </p>
 
     <p>Nem todos os blocos podem ser usados livremente:</p>
@@ -229,14 +228,14 @@ codigo_url: ""
         </tr>
       </thead>
       <tbody>
-        <tr><td>SDA/SS</td><td>53</td></tr>
+        <tr><td>SDA</td><td>53</td></tr>
         <tr><td>RST</td><td>5</td></tr>
       </tbody>
     </table>
 
     <p>
-      Os pinos SCK, MOSI e MISO (52, 51 e 50) não aparecem no código, porque a
-      biblioteca já sabe onde eles ficam no Arduino Mega.
+      Os outros pinos do leitor não aparecem no código, porque a biblioteca já
+      sabe onde eles ficam no Arduino Mega.
     </p>
 
     <div class="warning">
@@ -303,9 +302,8 @@ codigo_url: ""
     </ol>
 
     <p>
-      No Arduino Mega, o módulo Bluetooth fica ligado à porta Serial1 (pinos 18 e 19),
-      separada da porta usada pelo USB. Por isso, não é preciso desconectar o
-      Bluetooth para carregar o código.
+      O módulo Bluetooth usa pinos diferentes dos do cabo USB. Por isso, não é
+      preciso desconectá-lo para carregar o código.
     </p>
 
     <div class="tip">
@@ -435,7 +433,7 @@ codigo_url: ""
         </tr>
         <tr>
           <td>Erro de autenticação</td>
-          <td>Se o cartão é do tipo MIFARE Classic e se ainda usa a chave de fábrica. Cartões de outro tipo, ou com chave alterada, não podem ser gravados por esse código.</td>
+          <td>Se o cartão é compatível com o leitor RC522 e se nunca teve suas chaves de acesso alteradas. Cartões de outro tipo, ou com chaves alteradas, não podem ser gravados por esse código.</td>
         </tr>
         <tr>
           <td>Erro de escrita</td>
