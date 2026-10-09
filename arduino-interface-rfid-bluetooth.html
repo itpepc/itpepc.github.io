@@ -1,0 +1,666 @@
+---
+layout: default
+lang: pt-BR
+title: Montagem da Interface
+permalink: /arduino-interface-rfid-bluetooth/
+---
+
+<style>
+  .image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    padding: 1em;
+    border: 2px dashed #aaa;
+    background: #f5f5f5;
+    color: #666;
+    text-align: center;
+  }
+  figure { margin: 1.5em 0; }
+  figcaption { font-size: 0.9em; color: #666; margin-top: 0.5em; }
+  .warning {
+    border-left: 4px solid #e0a800;
+    background: #fff8e1;
+    padding: 0.75em 1em;
+    margin: 1em 0;
+  }
+  .tinkercad {
+    border-left: 4px solid #1477d1;
+    background: #eaf4fd;
+    padding: 0.75em 1em;
+    margin: 1em 0;
+  }
+  .tinkercad > strong:first-child { display: block; margin-bottom: 0.4em; }
+</style>
+
+<article>
+
+  <header>
+    <h1>Como montar um circuito com Arduino Mega, leitor RFID, módulo Bluetooth e bateria de 9 V</h1>
+
+    <p>
+      Neste tutorial, você aprenderá a montar um circuito utilizando um
+      <strong>Arduino Mega</strong>, um <strong>leitor RFID</strong>,
+      um <strong>módulo Bluetooth</strong> e uma <strong>bateria de 9 V</strong>.
+    </p>
+
+    <p>
+      O objetivo do projeto é criar uma base para sistemas de identificação sem fio.
+      O leitor RFID poderá identificar cartões ou tags, enquanto o módulo Bluetooth
+      poderá enviar essas informações para outro dispositivo, como um celular,
+      computador ou aplicativo.
+    </p>
+  </header>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 1 — Foto do circuito completo com Arduino Mega, RFID e Bluetooth]
+    </div>
+    <figcaption>
+      Exemplo de montagem utilizando Arduino Mega, leitor RFID, módulo Bluetooth e bateria de 9 V.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>Materiais necessários</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Quantidade</th>
+          <th>Componente</th>
+          <th>Onde encontrar (sucata)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Arduino Mega 2560</td><td>Impressoras 3D antigas (muitas usam Arduino Mega), projetos ou kits de robótica antigos</td></tr>
+        <tr><td>1</td><td>Leitor RFID compatível com Arduino</td><td>Kits de sensores ou projetos antigos; os cartões e tags podem vir de crachás, chaveiros de portaria e bilhetes de transporte</td></tr>
+        <tr><td>1</td><td>Módulo Bluetooth serial, como HC-05 ou HC-06</td><td>Kits de robótica ou projetos antigos</td></tr>
+        <tr><td>1</td><td>Bateria de 9 V</td><td>Detector de fumaça, multímetro, microfone sem fio</td></tr>
+        <tr><td>1</td><td>Conector para bateria de 9 V</td><td>Brinquedos eletrônicos, rádios portáteis, detectores de fumaça</td></tr>
+        <tr><td>Vários</td><td>Jumpers macho-macho ou macho-fêmea</td><td>Cabos de rede, cabos de telefone, aparelhos eletrônicos descartados</td></tr>
+        <tr><td>1</td><td>Protoboard, se necessária</td><td>Kits de eletrônica ou laboratório da escola</td></tr>
+        <tr><td>2</td><td>Resistores para divisor de tensão, recomendados para o pino RX do Bluetooth</td><td>Placas de rádios, carregadores e brinquedos descartados (confira o valor pelas faixas de cor)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Antes de começar</h2>
+
+    <p>
+      Existem vários modelos de leitores RFID e módulos Bluetooth. Por isso,
+      antes de iniciar a montagem, observe atentamente os nomes dos pinos
+      impressos no seu módulo.
+    </p>
+
+    <p>Neste artigo, será considerada uma montagem comum usando:</p>
+
+    <ul>
+      <li>um leitor RFID do tipo <strong>RC522/MFRC522</strong>, que utiliza comunicação SPI;</li>
+      <li>
+        um módulo Bluetooth serial do tipo <strong>HC-05 ou HC-06</strong>,
+        que utiliza comunicação UART;
+      </li>
+      <li>um <strong>Arduino Mega 2560</strong>;</li>
+      <li>uma <strong>bateria de 9 V</strong> para alimentar o Arduino.</li>
+    </ul>
+
+    <div class="warning">
+      <strong>Atenção:</strong>
+      muitos leitores RFID RC522 funcionam em <strong>3,3 V</strong>.
+      Não conecte o pino VCC desse módulo diretamente ao 5V do Arduino,
+      a menos que o seu módulo seja explicitamente compatível com 5V.
+    </div>
+  </section>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 2 — Componentes separados antes da montagem]
+    </div>
+    <figcaption>
+      Componentes principais do projeto: Arduino Mega, RFID, Bluetooth e bateria.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>Laboratório virtual: treine no Tinkercad</h2>
+
+    <p>
+      Antes de mexer nos fios de verdade, que tal um treino sem riscos?
+      No <strong>Tinkercad</strong> você monta, liga e mede à vontade:
+      se algo der errado, nada queima e nenhuma bateria acaba!
+    </p>
+
+    <p>
+      Aqui vai um segredo do laboratório: o Tinkercad não tem todos os
+      componentes deste projeto. Ele só oferece o <strong>Arduino Uno</strong>
+      (não o Mega) e não tem leitor RFID nem módulo Bluetooth. Por isso, no
+      simulador vamos treinar a parte elétrica que dá para testar: a
+      alimentação, as tensões de 5 V e 3,3 V, o divisor de tensão e o GND comum.
+      Os pinos SPI e seriais do Mega você confere direto nas tabelas deste tutorial.
+    </p>
+
+    <p>Para entrar no laboratório:</p>
+
+    <ol>
+      <li>
+        Acesse <a href="https://www.tinkercad.com/circuits" target="_blank" rel="noopener">tinkercad.com/circuits</a>
+        e entre com a sua conta (o cadastro é gratuito).
+      </li>
+      <li>Clique em <strong>Criar</strong> e escolha <strong>Circuito</strong>.</li>
+      <li>
+        Use a busca de componentes, no lado direito, para encontrar cada peça
+        pelo nome e arraste-a para a área de trabalho.
+      </li>
+      <li>
+        Para criar um fio, clique em um pino e depois em outro. Passe o mouse
+        sobre um pino para ver o nome dele.
+      </li>
+      <li>
+        Clique em <strong>Iniciar simulação</strong> para ligar o circuito e em
+        <strong>Parar simulação</strong> para voltar a editar.
+      </li>
+    </ol>
+
+    <p>
+      Ao longo do tutorial, você vai encontrar <strong>missões no Tinkercad</strong>.
+      Cada uma propõe um pequeno experimento sobre a etapa que você acabou de ler.
+      Sua ferramenta secreta será o <strong>multímetro</strong>: ele mostra quantos
+      volts existem entre dois pontos, como um termômetro da eletricidade.
+    </p>
+
+    <div class="tinkercad">
+      <strong>Missão 0: montando a bancada</strong>
+      Crie um circuito novo e coloque na área de trabalho um Arduino Uno, uma
+      bateria de 9 V, uma protoboard e um multímetro. No multímetro, escolha o
+      modo de tensão (V). Pronto: sua bancada virtual está montada!
+    </div>
+  </section>
+
+  <section>
+    <h2>1. Alimentando o Arduino Mega com a bateria de 9 V</h2>
+
+    <p>
+      A bateria de 9 V será utilizada para alimentar o Arduino Mega.
+      A forma mais simples é conectar a bateria ao conector de alimentação
+      da placa, usando um adaptador apropriado.
+    </p>
+
+    <p>
+      Também é possível alimentar o Arduino pelo pino <strong>VIN</strong>,
+      respeitando a polaridade:
+    </p>
+
+    <ul>
+      <li>positivo da bateria de 9 V → <strong>VIN</strong> do Arduino Mega;</li>
+      <li>negativo da bateria de 9 V → <strong>GND</strong> do Arduino Mega.</li>
+    </ul>
+
+    <div class="warning">
+      <strong>Importante:</strong>
+      não conecte a bateria de 9 V diretamente ao pino <strong>5V</strong>
+      do Arduino. O pino 5V deve receber apenas tensão regulada de 5 V.
+    </div>
+
+    <div class="tinkercad">
+      <strong>Missão 1 no Tinkercad: a bateria que vira 5 V</strong>
+      Ligue o positivo da bateria ao <strong>VIN</strong> e o negativo ao
+      <strong>GND</strong> do Arduino. Inicie a simulação e meça com o
+      multímetro: primeiro entre os terminais da bateria, depois entre o pino
+      <strong>5V</strong> e o GND. Entram uns 9 V e saem uns 5 V: o Arduino
+      tem um “redutor de tensão” interno, o regulador. Mágica? Não, eletrônica!
+    </div>
+  </section>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 3 — Bateria de 9 V conectada ao Arduino Mega]
+    </div>
+    <figcaption>
+      Alimentação do Arduino Mega utilizando uma bateria de 9 V.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>2. Conectando o leitor RFID ao Arduino Mega</h2>
+
+    <p>
+      O leitor RFID será responsável por identificar cartões ou tags por aproximação.
+      No caso de módulos RFID RC522/MFRC522, a comunicação com o Arduino é feita
+      por meio do barramento <strong>SPI</strong>.
+    </p>
+
+    <p>No Arduino Mega, os principais pinos SPI são:</p>
+
+    <ul>
+      <li><strong>MISO</strong> → pino 50;</li>
+      <li><strong>MOSI</strong> → pino 51;</li>
+      <li><strong>SCK</strong> → pino 52;</li>
+      <li><strong>SS/SDA</strong> → pino digital escolhido para seleção do módulo;</li>
+      <li><strong>RST</strong> → pino digital escolhido para reset do módulo.</li>
+    </ul>
+
+    <p>Uma ligação comum para o leitor RFID RC522 no Arduino Mega é:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Leitor RFID RC522</th>
+          <th>Arduino Mega</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>VCC</td><td>3.3V</td></tr>
+        <tr><td>GND</td><td>GND</td></tr>
+        <tr><td>SDA ou SS</td><td>D53</td></tr>
+        <tr><td>SCK</td><td>D52</td></tr>
+        <tr><td>MOSI</td><td>D51</td></tr>
+        <tr><td>MISO</td><td>D50</td></tr>
+        <tr><td>RST</td><td>D5</td></tr>
+        <tr><td>IRQ</td><td>Não utilizado</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      O pino <strong>SDA</strong> do RC522 não é um pino I2C nesse caso.
+      Em muitos módulos, ele representa o pino <strong>SS</strong> da comunicação SPI.
+    </p>
+
+    <div class="warning">
+      <strong>Atenção:</strong>
+      confirme a tensão de operação do seu leitor RFID.
+      Em muitos módulos RC522, a alimentação correta é 3,3 V.
+    </div>
+
+    <div class="tinkercad">
+      <strong>Missão 2 no Tinkercad: a tomada do leitor RFID</strong>
+      O leitor RFID não existe no Tinkercad, mas a “tomada” dele existe!
+      Com a simulação ligada, meça a tensão entre o pino <strong>3.3V</strong>
+      e o GND do Arduino. Compare com a medida do pino 5V da missão anterior.
+      Agora você sabe por que trocar esses dois pinos pode deixar o leitor
+      com uma bela dor de cabeça.
+    </div>
+  </section>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 4 — Leitor RFID conectado ao Arduino Mega]
+    </div>
+    <figcaption>
+      Conexões SPI entre o leitor RFID e o Arduino Mega.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>3. Conectando o módulo Bluetooth</h2>
+
+    <p>
+      O módulo Bluetooth será utilizado para enviar ou receber dados sem fio.
+      Em projetos com Arduino, módulos como HC-05 e HC-06 são bastante comuns.
+      Eles se comunicam com o Arduino por meio de comunicação serial.
+    </p>
+
+    <p>
+      O Arduino Mega possui portas seriais extras, o que facilita bastante
+      a montagem. Neste projeto, usaremos a porta <strong>Serial1</strong>,
+      formada pelos pinos:
+    </p>
+
+    <ul>
+      <li><strong>TX1</strong> → pino 18;</li>
+      <li><strong>RX1</strong> → pino 19.</li>
+    </ul>
+
+    <p>A ligação básica do módulo Bluetooth será:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Módulo Bluetooth</th>
+          <th>Arduino Mega</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>VCC</td><td>5V ou 3.3V, conforme o módulo</td></tr>
+        <tr><td>GND</td><td>GND</td></tr>
+        <tr><td>TXD</td><td>RX1 — pino 19</td></tr>
+        <tr><td>RXD</td><td>TX1 — pino 18, preferencialmente com divisor de tensão</td></tr>
+      </tbody>
+    </table>
+
+    <p>A conexão serial sempre deve ser cruzada:</p>
+
+    <ul>
+      <li>TX do Bluetooth → RX do Arduino;</li>
+      <li>RX do Bluetooth → TX do Arduino.</li>
+    </ul>
+
+    <p>
+      Como alguns módulos Bluetooth trabalham com lógica de 3,3 V no pino RXD,
+      recomenda-se usar um divisor de tensão entre o pino TX1 do Arduino e o RXD
+      do módulo Bluetooth.
+    </p>
+  </section>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 5 — Módulo Bluetooth conectado aos pinos 18 e 19 do Arduino Mega]
+    </div>
+    <figcaption>
+      Conexão serial entre o Arduino Mega e o módulo Bluetooth.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>4. Fazendo o divisor de tensão para o Bluetooth</h2>
+
+    <p>
+      O Arduino Mega trabalha com sinais digitais de 5 V. Porém, alguns módulos
+      Bluetooth aceitam apenas sinais de aproximadamente 3,3 V no pino RXD.
+    </p>
+
+    <p>
+      Para proteger o módulo Bluetooth, é recomendado usar um divisor de tensão
+      no fio que sai do <strong>TX1 do Arduino Mega</strong> e entra no
+      <strong>RXD do Bluetooth</strong>.
+    </p>
+
+    <p>Uma combinação comum é usar:</p>
+
+    <ul>
+      <li>resistor de 1 kΩ entre o TX1 do Arduino e o RXD do Bluetooth;</li>
+      <li>resistor de 2 kΩ entre o RXD do Bluetooth e o GND.</li>
+    </ul>
+
+    <p>
+      Dessa forma, o sinal de 5 V vindo do Arduino é reduzido para uma faixa
+      mais segura para o módulo Bluetooth.
+    </p>
+
+    <p>A ligação fica assim:</p>
+
+    <pre>
+Arduino Mega TX1, pino 18
+        |
+        |
+      resistor 1 kΩ
+        |
+        +------ RXD do Bluetooth
+        |
+      resistor 2 kΩ
+        |
+       GND
+    </pre>
+
+    <p>
+      O pino TXD do Bluetooth pode ser conectado diretamente ao RX1 do Arduino,
+      pois o Arduino Mega normalmente reconhece o sinal enviado pelo módulo.
+    </p>
+
+    <div class="tinkercad">
+      <strong>Missão 3 no Tinkercad: o escorregador de tensão</strong>
+      Monte o divisor na protoboard: um resistor de <strong>1 kΩ</strong>
+      saindo do pino 5V do Arduino (ele faz o papel do TX1, que fica em 5 V
+      quando está parado) e um resistor de <strong>2 kΩ</strong> indo do
+      ponto do meio até o GND. Clique em cada resistor para ajustar o valor.
+      Inicie a simulação e meça o ponto do meio: o resultado deve ficar perto
+      de <strong>3,3 V</strong>. Os 5 V desceram o escorregador e chegaram
+      na medida certa para o Bluetooth!
+    </div>
+  </section>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 6 — Divisor de tensão entre TX1 do Arduino e RXD do Bluetooth]
+    </div>
+    <figcaption>
+      Divisor de tensão recomendado para proteger a entrada RXD do módulo Bluetooth.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>5. Criando o GND comum</h2>
+
+    <p>
+      Todos os módulos do circuito precisam compartilhar o mesmo GND para que
+      os sinais elétricos sejam interpretados corretamente.
+    </p>
+
+    <p>Portanto, conecte todos os terras em comum:</p>
+
+    <ul>
+      <li>GND do Arduino Mega;</li>
+      <li>GND do leitor RFID;</li>
+      <li>GND do módulo Bluetooth;</li>
+      <li>negativo da bateria de 9 V.</li>
+    </ul>
+
+    <p>A estrutura geral será:</p>
+
+    <p><strong>GND Arduino Mega ↔ GND RFID ↔ GND Bluetooth ↔ negativo da bateria</strong></p>
+
+    <div class="tinkercad">
+      <strong>Missão 4 no Tinkercad: a roda de mãos dadas</strong>
+      Ligue o GND do Arduino à linha azul (negativa) da protoboard e conecte
+      a essa linha o resistor de 2 kΩ e o negativo da bateria. Depois faça o
+      teste do detetive: apague o fio entre o GND do Arduino e a protoboard,
+      inicie a simulação e meça de novo o meio do divisor. O que aconteceu?
+      Desfaça com <strong>Ctrl+Z</strong>. Sem todo mundo de mãos dadas no GND,
+      as medidas param de fazer sentido!
+    </div>
+  </section>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 7 — Diagrama destacando o GND comum do circuito]
+    </div>
+    <figcaption>
+      Todos os módulos devem compartilhar a mesma referência de GND.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>6. Resumo das conexões</h2>
+
+    <h3>Leitor RFID RC522/MFRC522</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>RFID</th>
+          <th>Arduino Mega</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>VCC</td><td>3.3V</td></tr>
+        <tr><td>GND</td><td>GND</td></tr>
+        <tr><td>SDA/SS</td><td>D53</td></tr>
+        <tr><td>SCK</td><td>D52</td></tr>
+        <tr><td>MOSI</td><td>D51</td></tr>
+        <tr><td>MISO</td><td>D50</td></tr>
+        <tr><td>RST</td><td>D5</td></tr>
+        <tr><td>IRQ</td><td>Não conectado</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Módulo Bluetooth HC-05/HC-06</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Bluetooth</th>
+          <th>Arduino Mega</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>VCC</td><td>5V ou 3.3V, conforme o módulo</td></tr>
+        <tr><td>GND</td><td>GND</td></tr>
+        <tr><td>TXD</td><td>RX1 — D19</td></tr>
+        <tr><td>RXD</td><td>TX1 — D18, com divisor de tensão recomendado</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Alimentação</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Fonte</th>
+          <th>Conexão</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>positivo da bateria de 9 V</td><td>conector de alimentação do Arduino ou VIN</td></tr>
+        <tr><td>negativo da bateria de 9 V</td><td>GND do Arduino</td></tr>
+        <tr><td>5V do Arduino</td><td>módulo Bluetooth, se compatível</td></tr>
+        <tr><td>3.3V do Arduino</td><td>leitor RFID RC522/MFRC522</td></tr>
+        <tr><td>GND do Arduino</td><td>GND do RFID e GND do Bluetooth</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <figure>
+    <div class="image-placeholder">
+      [IMAGEM 8 — Diagrama geral de todas as conexões]
+    </div>
+    <figcaption>
+      Resumo visual das conexões entre Arduino Mega, RFID, Bluetooth e bateria.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>7. Como o circuito funciona</h2>
+
+    <p>
+      Depois que o circuito é ligado, o Arduino Mega alimenta os módulos
+      conectados a ele e inicia a comunicação com o leitor RFID e com o
+      módulo Bluetooth.
+    </p>
+
+    <p>
+      Quando uma tag ou cartão RFID é aproximado do leitor, o módulo RFID
+      envia os dados para o Arduino por meio da comunicação SPI.
+    </p>
+
+    <p>
+      O Arduino processa essa informação e pode, por exemplo, identificar
+      o código único da tag.
+    </p>
+
+    <p>
+      Em seguida, o Arduino pode enviar esse código pelo módulo Bluetooth
+      para outro dispositivo.
+    </p>
+
+    <p>Dessa forma, o projeto pode ser usado como base para:</p>
+
+    <ul>
+      <li>sistemas de controle de acesso;</li>
+      <li>identificação de usuários;</li>
+      <li>registro de entrada e saída;</li>
+      <li>projetos de automação;</li>
+      <li>integração com aplicativos móveis.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>8. Verificação antes de ligar</h2>
+
+    <p>Antes de conectar a bateria, confira cuidadosamente todas as ligações.</p>
+
+    <ul>
+      <li>
+        Verifique se o leitor RFID está ligado à tensão correta.
+        No caso do RC522, normalmente a alimentação é 3,3 V.
+      </li>
+      <li>
+        Confira se o módulo Bluetooth está recebendo a tensão compatível
+        com o seu modelo.
+      </li>
+      <li>Certifique-se de que TX e RX do Bluetooth foram cruzados corretamente.</li>
+      <li>
+        Use divisor de tensão no RXD do Bluetooth se o módulo não aceitar
+        lógica de 5 V.
+      </li>
+      <li>Não conecte a bateria de 9 V diretamente ao pino 5V do Arduino.</li>
+      <li>Confira se todos os GNDs estão interligados.</li>
+      <li>Verifique se não existem fios soltos ou curto-circuitos na protoboard.</li>
+    </ul>
+
+    <div class="tinkercad">
+      <strong>Missão final no Tinkercad: o ensaio geral</strong>
+      Com a simulação ligada, faça a rodada completa de medidas: cerca de 9 V
+      na bateria, 5 V no pino 5V, 3,3 V no pino 3.3V e cerca de 3,3 V no meio
+      do divisor. Anote os valores e leve a anotação para a montagem real:
+      depois, com um multímetro de verdade, você poderá comparar se o circuito
+      físico está igual ao virtual. Missão cumprida, agente!
+    </div>
+  </section>
+
+  <section>
+    <h2>9. Estrutura final do projeto</h2>
+
+    <pre>
+Cartão ou tag RFID
+        |
+        v
+ Leitor RFID RC522
+        |
+        | comunicação SPI
+        v
+ Arduino Mega
+        |
+        | comunicação serial
+        v
+ Módulo Bluetooth
+        |
+        v
+ Celular, computador ou aplicativo
+
+
+Bateria 9 V
+        |
+        v
+ Arduino Mega
+
+
+Arduino 3.3V
+        |
+        v
+ Leitor RFID
+
+
+Arduino 5V ou 3.3V
+        |
+        v
+ Módulo Bluetooth
+
+
+GND Arduino ───── GND RFID ───── GND Bluetooth ───── negativo da bateria
+    </pre>
+  </section>
+
+  <section>
+    <h2>Conclusão</h2>
+
+    <p>
+      Com essa montagem, é possível criar um sistema simples de identificação
+      por RFID com transmissão de dados via Bluetooth.
+    </p>
+
+    <p>
+      O Arduino Mega é uma boa escolha para esse tipo de projeto porque possui
+      várias portas digitais e portas seriais extras, permitindo conectar o
+      módulo Bluetooth sem interferir na comunicação USB usada para programação
+      e monitoramento.
+    </p>
+
+    <p>
+      A partir desse circuito, o próximo passo é programar o Arduino para ler
+      o código das tags RFID e enviar essas informações pelo módulo Bluetooth.
+    </p>
+  </section>
+
+</article>
